@@ -1,0 +1,12 @@
+# On suit les liens symboliques
+Options +FollowSymlinks
+# Activation du mod rewrite d'Apache
+RewriteEngine On
+# Réécriture URL Page d'accueil (liste des derniers billets)
+RewriteRule ^listebillets\.html$ index.php
+# Réécriture URL de la page d'inscription
+RewriteRule ^inscription\.html$ index.php?action=inscriptionView
+# Réécriture URL de la page de connexion
+RewriteRule ^connexion\.html$ index.php?action=connexionView
+# Réécriture URL de la page de création de billets
+RewriteRule ^creerbillet\.html$ index.php?action=creerBilletView [L]

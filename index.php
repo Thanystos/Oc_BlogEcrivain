@@ -9,4 +9,13 @@
         inscription();
     }elseif(filter_input(INPUT_POST, 'pseudo')) {
         connexion();
+    }elseif(filter_input(INPUT_GET, 'action') == 'listBillets') {
+        listBillets();
+    }elseif(filter_input(INPUT_GET, 'action') == 'creerBilletView') {
+        include('View/Creerbillet.php');
+    }elseif(filter_input(INPUT_GET, 'action') == 'creerBillet') {
+        addBillet();
     }
+    else {
+        listBillets();
+    }  
