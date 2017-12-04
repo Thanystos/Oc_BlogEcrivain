@@ -29,6 +29,8 @@
         modifBillet();
     }elseif(filter_input(INPUT_GET, 'action') == 'suppBillet') {
         suppBillet();
+    }elseif(filter_input(INPUT_GET, 'action') == 'deconnexion') {
+        deconnexion();
     }elseif(filter_input(INPUT_GET, 'action') == 'listUtilisateurs') {
         listUtilisateurs();
     }elseif(filter_input(INPUT_GET, 'action') == 'listSignalements') {

@@ -174,6 +174,12 @@ session_start();
         header('Location: listebillets.html');
     }
 	
+	function deconnexion() {
+        unset($_SESSION['id_utilisateur'], $_SESSION['pseudo'], $_SESSION['email'], $_SESSION['image'], $_SESSION['role'], $_SESSION['id_billet']);
+        session_destroy();
+        listBillets();
+    }
+	
 	function listUtilisateurs() {
         $requete = UsersManager::readall();
         include 'View/ListUtilisateurs.php';

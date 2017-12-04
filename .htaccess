@@ -8,6 +8,8 @@ RewriteRule ^listebillets\.html$ index.php
 RewriteRule ^inscription\.html$ index.php?action=inscriptionView
 # Réécriture URL de la page de connexion
 RewriteRule ^connexion\.html$ index.php?action=connexionView
+# Réécriture URL de la page de déconnexion
+RewriteRule ^deconnexion\.html$ index.php?action=deconnexion
 # Réécriture URL de la page de création de billets
 RewriteRule ^creerbillet\.html$ index.php?action=creerBilletView
 # Réécriture URL de la page listant les utilisateurs
