@@ -4,6 +4,10 @@ session_start();
     include 'Model/UsersManager.php';
     include 'Model/Billet.php';
     include 'Model/BilletsManager.php';
+    include 'Model/Commentaire.php';
+    include 'Model/CommentairesManager.php';
+    include 'Model/Signalement.php';
+    include 'Model/SignalementsManager.php';
     
     function inscription() {
         if(isset($_FILES['image'])&&($_FILES['image']['error'] == 0)) {  // Erreur d'envoi
@@ -108,6 +112,47 @@ session_start();
         }
     }
     
+	function uniBillet() {
+        $requeteBillet = BilletsManager::read(filter_input(INPUT_GET, 'id_billet'));
+        $requeteNbCommentaire = CommentairesManager::count(filter_input(INPUT_GET, 'id_billet'));
+        $requeteCommentaire = CommentairesManager::read(filter_input(INPUT_GET, 'id_billet'));
+        $requeteSignalement = null;
+        if(isset($_SESSION['id_utilisateur'])) {
+            $requeteSignalement = SignalementsManager::read(filter_input(INPUT_GET, 'id_billet'), $_SESSION['id_utilisateur']);
+        }
+        include 'View/UniBillet.php';
+    }
+    
+    function addCommentaire() {
+        $comm = new Commentaire();
+        $comm->setText(filter_input(INPUT_POST, 'comm'));
+        $comm->setIdBillet($_SESSION['id_billet']);
+        $comm->setIdUtilisateur($_SESSION['id_utilisateur']);
+        CommentairesManager::create($comm);
+        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    }
+    
+    function modifCommentaire() {
+        CommentairesManager::update(filter_input(INPUT_GET, 'id_commentaire'), filter_input(INPUT_POST, 'text'));
+        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    }
+    
+    function suppCommentaire() {
+        CommentairesManager::delete(filter_input(INPUT_GET, 'id_commentaire'));
+        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    }
+    
+    function createSignalement() {
+        $signalement = new Signalement();
+        $signalement->setIdCommentaire(filter_input(INPUT_GET, 'id_commentaire'));
+        $signalement->setIdUtilisateur($_SESSION['id_utilisateur']);
+        
+        SignalementsManager::create($signalement);
+        UsersManager::updateSignal(filter_input(INPUT_GET, 'pseudo'));
+        
+        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    }
+	
     function addBillet() {
         $billet = new Billet();
         $billet->setTitre(filter_input(INPUT_POST, 'titre'));
@@ -115,5 +160,16 @@ session_start();
         $billet->setIdUtilisateur($_SESSION['id_utilisateur']);
         
         BilletsManager::create($billet);
+        header('Location: listebillets.html');
+    }
+	
+	function modifBillet() {
+        BilletsManager::update(($_SESSION['id_billet']), filter_input(INPUT_POST, 'text'));
+        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    }
+    
+    function suppBillet() {
+        echo $_SESSION['id_billet'];
+        BilletsManager::delete($_SESSION['id_billet']);
         header('Location: listebillets.html');
     }

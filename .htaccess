@@ -9,4 +9,10 @@ RewriteRule ^inscription\.html$ index.php?action=inscriptionView
 # Réécriture URL de la page de connexion
 RewriteRule ^connexion\.html$ index.php?action=connexionView
 # Réécriture URL de la page de création de billets
-RewriteRule ^creerbillet\.html$ index.php?action=creerBilletView [L]
+RewriteRule ^creerbillet\.html$ index.php?action=creerBilletView
+# Réécriture des URL des articles 
+RewriteRule ^billet_([0-9]+)\.html$ index.php?action=unibillet&id_billet=$1
+# Réécriture des URL d'ajout de commentaires
+RewriteRule ^billet_([0-9]+)\.html$ index.php?action=ajoutCommentaire
+# Réécriture des URL d'ajout de signalements
+RewriteRule ^billet_([0-9]+)-signaler_([0-9]+)\.html$ index.php?action=signaler&id_commentaire=$2 [L]

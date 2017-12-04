@@ -14,12 +14,6 @@
                     <h4><small>DERNIERS BILLETS</small></h4>
                     <hr>
                                         <div class="billets">
-                        <h2><a href="billet_52.html">Billet 1</a></h2>
-                        <h5><span class="glyphicon glyphicon-time"></span> Publié par Thanystos le 2017-12-04.</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut...</p>
-                        <br><br>
-                    </div>
-                                        <div class="billets">
                         <h2><a href="billet_53.html">Billet 2</a></h2>
                         <h5><span class="glyphicon glyphicon-time"></span> Publié par Thanystos le 2017-12-04.</h5>
                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta...</p>
@@ -29,18 +23,6 @@
                         <h2><a href="billet_54.html">Billet 3</a></h2>
                         <h5><span class="glyphicon glyphicon-time"></span> Publié par Thanystos le 2017-12-04.</h5>
                         <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non...</p>
-                        <br><br>
-                    </div>
-                                        <div class="billets">
-                        <h2><a href="billet_56.html">test</a></h2>
-                        <h5><span class="glyphicon glyphicon-time"></span> Publié par Thanystos le 2017-12-04.</h5>
-                        <p>test</p>
-                        <br><br>
-                    </div>
-                                        <div class="billets">
-                        <h2><a href="billet_57.html">test2</a></h2>
-                        <h5><span class="glyphicon glyphicon-time"></span> Publié par Thanystos le 2017-12-04.</h5>
-                        <p>dsfdsf</p>
                         <br><br>
                     </div>
                                     </div>

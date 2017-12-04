@@ -11,10 +11,24 @@
         connexion();
     }elseif(filter_input(INPUT_GET, 'action') == 'listBillets') {
         listBillets();
+    }elseif(filter_input(INPUT_GET, 'action') == 'unibillet') {
+        uniBillet();
+    }elseif(filter_input(INPUT_GET, 'action') == 'ajoutCommentaire') {
+        addCommentaire();
+    }elseif(filter_input(INPUT_GET, 'action') == 'modifCommentaire') {
+        modifCommentaire();
+    }elseif(filter_input(INPUT_GET, 'action') == 'suppCommentaire') {
+        suppCommentaire();    
+    }elseif(filter_input(INPUT_GET, 'action') == 'signaler') {
+        createSignalement();
     }elseif(filter_input(INPUT_GET, 'action') == 'creerBilletView') {
         include('View/Creerbillet.php');
     }elseif(filter_input(INPUT_GET, 'action') == 'creerBillet') {
         addBillet();
+    }elseif(filter_input(INPUT_GET, 'action') == 'modifBillet') {
+        modifBillet();
+    }elseif(filter_input(INPUT_GET, 'action') == 'suppBillet') {
+        suppBillet();
     }
     else {
         listBillets();
