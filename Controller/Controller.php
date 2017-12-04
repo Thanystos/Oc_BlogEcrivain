@@ -173,3 +173,24 @@ session_start();
         BilletsManager::delete($_SESSION['id_billet']);
         header('Location: listebillets.html');
     }
+	
+	function listUtilisateurs() {
+        $requete = UsersManager::readall();
+        include 'View/ListUtilisateurs.php';
+    }
+    
+    function listSignalements() {
+       $requete = CommentairesManager::readSignal();
+       include 'View/ListeSignalements.php';
+    }
+    
+    function updateStatus() {
+        UsersManager::updateStatut(filter_input(INPUT_GET, 'id_utilisateur'));
+        listUtilisateurs();
+    }
+    
+    function suppUtilisateur() {
+        unlink('Public/Images/'.filter_input(INPUT_GET, 'image'));
+        UsersManager::delete(filter_input(INPUT_GET, 'id'));
+        header('Location: listeutilisateurs.html');
+    }

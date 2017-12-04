@@ -22,6 +22,20 @@
             $requete->execute(array($id_billet));
             return $requete;
         }
+		
+		public static function readSignal() {
+            $pdo = DBConnexion::getInstance();
+            $requete = $pdo->query('SELECT c.text, b.id, b.titre, u.pseudo '
+                                   . 'FROM commentaires c '
+                                   . 'INNER JOIN billets b '
+                                   . 'ON c.id_billet = b.id '
+                                   . 'INNER JOIN signalements s '
+                                   . 'ON c.id = s.id_commentaire '
+                                   . 'INNER JOIN utilisateurs u '
+                                   . 'ON s.id_utilisateur = u.id');
+            
+            return $requete;
+        }
 
         public static function update($id_commentaire, $text) {
             $pdo = DBConnexion::getInstance();

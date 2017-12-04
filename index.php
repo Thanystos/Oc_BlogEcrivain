@@ -29,6 +29,14 @@
         modifBillet();
     }elseif(filter_input(INPUT_GET, 'action') == 'suppBillet') {
         suppBillet();
+    }elseif(filter_input(INPUT_GET, 'action') == 'listUtilisateurs') {
+        listUtilisateurs();
+    }elseif(filter_input(INPUT_GET, 'action') == 'listSignalements') {
+        listSignalements();
+    }elseif(filter_input(INPUT_GET, 'action') == 'updateStatus') {
+        updateStatus();
+    }elseif(filter_input(INPUT_GET, 'action') == 'suppUtilisateur') {
+        suppUtilisateur();
     }
     else {
         listBillets();

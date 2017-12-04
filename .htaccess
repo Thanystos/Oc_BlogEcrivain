@@ -10,6 +10,14 @@ RewriteRule ^inscription\.html$ index.php?action=inscriptionView
 RewriteRule ^connexion\.html$ index.php?action=connexionView
 # Réécriture URL de la page de création de billets
 RewriteRule ^creerbillet\.html$ index.php?action=creerBilletView
+# Réécriture URL de la page listant les utilisateurs
+RewriteRule ^listeutilisateurs\.html$ index.php?action=listUtilisateurs
+# Réécriture URL de la page listant les signalements
+RewriteRule ^listesignalements\.html$ index.php?action=listSignalements
+# Réécriture URL de suppression d'utilisateurs
+RewriteRule ^supputilisateur_([0-9]+)-([a-zA-Z0-9\.]+)\.html$ index.php?action=suppUtilisateur&id=$1&image=$2
+# Réécriture URL de la page listant les signalements
+RewriteRule ^listesignalements\.html$ index.php?action=listSignalements
 # Réécriture des URL des articles 
 RewriteRule ^billet_([0-9]+)\.html$ index.php?action=unibillet&id_billet=$1
 # Réécriture des URL d'ajout de commentaires
