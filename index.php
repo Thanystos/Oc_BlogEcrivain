@@ -1,45 +1,45 @@
 <?php
     include 'Controller/Controller.php';
     
-    if(filter_input(INPUT_GET, 'action') == 'inscriptionView') {
-        include('View/Inscription.php');
-    }elseif(filter_input(INPUT_GET, 'action') == 'connexionView') {
-        include('View/Connexion.php');
+    if(filter_input(INPUT_GET, 'action') == 'signUpView') {
+        include('View/SignUp.php');
+    }elseif(filter_input(INPUT_GET, 'action') == 'signInView') {
+        include('View/SignIn.php');
     }elseif(filter_input(INPUT_POST, 'email')) {
-        inscription();
+        signUp();
     }elseif(filter_input(INPUT_POST, 'pseudo')) {
-        connexion();
-    }elseif(filter_input(INPUT_GET, 'action') == 'listBillets') {
-        listBillets();
-    }elseif(filter_input(INPUT_GET, 'action') == 'unibillet') {
-        uniBillet();
-    }elseif(filter_input(INPUT_GET, 'action') == 'ajoutCommentaire') {
-        addCommentaire();
-    }elseif(filter_input(INPUT_GET, 'action') == 'modifCommentaire') {
-        modifCommentaire();
-    }elseif(filter_input(INPUT_GET, 'action') == 'suppCommentaire') {
-        suppCommentaire();    
-    }elseif(filter_input(INPUT_GET, 'action') == 'signaler') {
-        createSignalement();
-    }elseif(filter_input(INPUT_GET, 'action') == 'creerBilletView') {
-        include('View/Creerbillet.php');
-    }elseif(filter_input(INPUT_GET, 'action') == 'creerBillet') {
-        addBillet();
-    }elseif(filter_input(INPUT_GET, 'action') == 'modifBillet') {
-        modifBillet();
-    }elseif(filter_input(INPUT_GET, 'action') == 'suppBillet') {
-        suppBillet();
-    }elseif(filter_input(INPUT_GET, 'action') == 'deconnexion') {
-        deconnexion();
-    }elseif(filter_input(INPUT_GET, 'action') == 'listUtilisateurs') {
-        listUtilisateurs();
-    }elseif(filter_input(INPUT_GET, 'action') == 'listSignalements') {
-        listSignalements();
+        signIn();
+    }elseif(filter_input(INPUT_GET, 'action') == 'ticketsList') {
+        ticketsList();
+    }elseif(filter_input(INPUT_GET, 'action') == 'singleTicket') {
+        singleTicket();
+    }elseif(filter_input(INPUT_GET, 'action') == 'addComment') {
+        addComment();
+    }elseif(filter_input(INPUT_GET, 'action') == 'updateComment') {
+        updateComment();
+    }elseif(filter_input(INPUT_GET, 'action') == 'deleteComment') {
+        deleteComment();    
+    }elseif(filter_input(INPUT_GET, 'action') == 'report') {
+        createReport();
+    }elseif(filter_input(INPUT_GET, 'action') == 'addTicketView') {
+        include('View/AddTicket.php');
+    }elseif(filter_input(INPUT_GET, 'action') == 'addTicket') {
+        addTicket();
+    }elseif(filter_input(INPUT_GET, 'action') == 'updateTicket') {
+        updateTicket();
+    }elseif(filter_input(INPUT_GET, 'action') == 'deleteTicket') {
+        deleteTicket();
+    }elseif(filter_input(INPUT_GET, 'action') == 'signOut') {
+        signOut();
+    }elseif(filter_input(INPUT_GET, 'action') == 'usersList') {
+        usersList();
+    }elseif(filter_input(INPUT_GET, 'action') == 'reportsList') {
+        reportsList();
     }elseif(filter_input(INPUT_GET, 'action') == 'updateStatus') {
         updateStatus();
-    }elseif(filter_input(INPUT_GET, 'action') == 'suppUtilisateur') {
-        suppUtilisateur();
+    }elseif(filter_input(INPUT_GET, 'action') == 'deleteUser') {
+        deleteUser();
     }
     else {
-        listBillets();
-    }  
+        ticketsList();
+    }   

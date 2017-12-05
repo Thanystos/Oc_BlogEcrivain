@@ -2,7 +2,7 @@
     class User {
         protected $id,
                   $pseudo,
-                  $mdp,
+                  $password,
                   $email,
                   $image;
         
@@ -14,8 +14,8 @@
               return $this->pseudo;
           }
 
-          function getMdp() {
-              return $this->mdp;
+          function getPassword() {
+              return $this->password;
           }
 
           function getEmail() {
@@ -34,8 +34,8 @@
               $this->pseudo = $pseudo;
           }
 
-          function setMdp($mdp) {
-              $this->mdp = $mdp;
+          function setPassword($password) {
+              $this->password = $password;
           }
 
           function setEmail($email) {

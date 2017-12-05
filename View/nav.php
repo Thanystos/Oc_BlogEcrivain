@@ -3,7 +3,7 @@
     <ul class="nav nav-pills nav-stacked">
         <li><a href="listebillets.html">Liste des billets</a></li>
         <?php if((isset($_SESSION['pseudo']))&&($_SESSION['role'] == 2)) { ?>
-        <li><a href="creerbillet.html">Créer billet</a></li>
+        <li><a href="creationbillet.html">Créer billet</a></li>
         <li><a href="listeutilisateurs.html">Liste utilisateurs</a></li>
         <li><a href="listesignalements.html">Liste signalements</a></li>
         <?php } ?>

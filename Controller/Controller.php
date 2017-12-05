@@ -2,31 +2,31 @@
 session_start();
     include 'Model/User.php';
     include 'Model/UsersManager.php';
-    include 'Model/Billet.php';
-    include 'Model/BilletsManager.php';
-    include 'Model/Commentaire.php';
-    include 'Model/CommentairesManager.php';
-    include 'Model/Signalement.php';
-    include 'Model/SignalementsManager.php';
+    include 'Model/Ticket.php';
+    include 'Model/TicketsManager.php';
+    include 'Model/Comment.php';
+    include 'Model/CommentsManager.php';
+    include 'Model/Report.php';
+    include 'Model/ReportsManager.php';
     
-    function inscription() {
+    function signUp() {
         if(isset($_FILES['image'])&&($_FILES['image']['error'] == 0)) {  // Erreur d'envoi
             // Vérifications des doublons et de l'image
             if (!UsersManager::verify(filter_input(INPUT_POST, 'pseudo'))) {  // Doublon de pseudo
                 if(($_FILES['image']['size'] <= 1000000)) {  // Taille excessive
-                    $infosfichier = pathinfo($_FILES['image']['name']);
-                    $extension_upload = $infosfichier['extension'];
-                    $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png');
-                    if(in_array($extension_upload, $extensions_autorisees)) {  // Extension non autorisée
+                    $fileInfos = pathinfo($_FILES['image']['name']);
+                    $uploadedExtension = $fileInfos['extension'];
+                    $allowedExtensions = array('jpg', 'jpeg', 'gif', 'png');
+                    if(in_array($uploadedExtension, $allowedExtensions)) {  // Extension non autorisée
                         move_uploaded_file($_FILES['image']['tmp_name'], 'Public/Images/' . basename($_FILES['image']['name']));
                         
                         $_SESSION['pseudo'] = filter_input(INPUT_POST, 'pseudo');
-                        $mdp_hache = password_hash(filter_input(INPUT_POST, 'mdp'), PASSWORD_BCRYPT);
+                        $password_hash = password_hash(filter_input(INPUT_POST, 'password'), PASSWORD_BCRYPT);
 
                         $user = new User();
                         $user->setPseudo(filter_input(INPUT_POST, 'pseudo'));
                         $user->setEmail(filter_input(INPUT_POST, 'email'));
-                        $user->setMdp($mdp_hache);
+                        $user->setPassword($password_hash);
                         $user->setImage($_FILES['image']['name']);
                         
                         $_SESSION['pseudo'] = filter_input(INPUT_POST, 'pseudo');
@@ -36,11 +36,11 @@ session_start();
                         $_SESSION['ban'] = 0;
 
                         UsersManager::create($user);
-                        $requete = UsersManager::readId($_SESSION['pseudo']);
-                        $id = $requete->fetch();
-                        $_SESSION['id_utilisateur'] = $id['id'];
+                        $request = UsersManager::readId($_SESSION['pseudo']);
+                        $id = $request->fetch();
+                        $_SESSION['id_user'] = $id['id'];
                         echo 'Inscription réussie !';
-                        listBillets();
+                        ticketsList();
                     }
                     else {
                         echo "Format de l'image incorrect !";
@@ -61,17 +61,17 @@ session_start();
         }
     }
     
-    function connexion() {
-        if(filter_input(INPUT_POST, 'pseudo')&&(filter_input(INPUT_POST, 'mdp'))){
-            $requete = UsersManager::read(filter_input(INPUT_POST, 'pseudo'), filter_input(INPUT_POST, 'mdp'));
-            if($requete) {
-                $_SESSION['id_utilisateur'] = $requete['id'];
-                $_SESSION['pseudo'] = $requete['pseudo'];
-                $_SESSION['email'] = $requete['email'];
-                $_SESSION['image'] = $requete['image'];
-                $_SESSION['role'] = $requete['role'];
-                $_SESSION['ban'] = $requete['ban'];
-                listBillets();
+    function signIn() {
+        if(filter_input(INPUT_POST, 'pseudo')&&(filter_input(INPUT_POST, 'password'))){
+            $request = UsersManager::read(filter_input(INPUT_POST, 'pseudo'), filter_input(INPUT_POST, 'password'));
+            if($request) {
+                $_SESSION['id_user'] = $request['id'];
+                $_SESSION['pseudo'] = $request['pseudo'];
+                $_SESSION['email'] = $request['email'];
+                $_SESSION['image'] = $request['image'];
+                $_SESSION['role'] = $request['role'];
+                $_SESSION['ban'] = $request['ban'];
+                ticketsList();
             }
             else {
                 echo 'Mauvais identifiant ou mot de passe !';
@@ -82,8 +82,8 @@ session_start();
         }
     }
     
-    function listBillets() {
-        $cache = 'View/Cache/listbillets.php';
+    function ticketsList() {
+        $cache = 'View/Cache/TicketsList.php';
         $expire = time() -2;
 
         if(file_exists($cache) && filemtime($cache) > $expire) {
@@ -91,20 +91,20 @@ session_start();
             readfile($cache);
         }
         else {
-            $requete = BilletsManager::readAll();
-            function resume($chaine) {
-                if(strlen($chaine) >= 200) {
-                    $chaine = substr($chaine, 0, 200);
-                    $espace = strrpos($chaine, ' ');
-                    return $chaine = substr($chaine, 0, $espace)."...";
+            $request = TicketsManager::readAll();
+            function resume($string) {
+                if(strlen($string) >= 200) {
+                    $string = substr($string, 0, 200);
+                    $space = strrpos($string, ' ');
+                    return $string = substr($string, 0, $space)."...";
                 }
                 else {
-                    return $chaine;
+                    return $string;
                 }
             }
             include 'View/nav.php';
             ob_start();
-            include 'View/ListBillets.php';
+            include 'View/TicketsList.php';
             $page = ob_get_contents();
             ob_end_clean();
             file_put_contents($cache, $page) ;
@@ -112,90 +112,90 @@ session_start();
         }
     }
     
-	function uniBillet() {
-        $requeteBillet = BilletsManager::read(filter_input(INPUT_GET, 'id_billet'));
-        $requeteNbCommentaire = CommentairesManager::count(filter_input(INPUT_GET, 'id_billet'));
-        $requeteCommentaire = CommentairesManager::read(filter_input(INPUT_GET, 'id_billet'));
-        $requeteSignalement = null;
-        if(isset($_SESSION['id_utilisateur'])) {
-            $requeteSignalement = SignalementsManager::read(filter_input(INPUT_GET, 'id_billet'), $_SESSION['id_utilisateur']);
+    function singleTicket() {
+        $requestTicket = TicketsManager::read(filter_input(INPUT_GET, 'id_ticket'));
+        $requestNbComments = CommentsManager::count(filter_input(INPUT_GET, 'id_ticket'));
+        $requestComments = CommentsManager::read(filter_input(INPUT_GET, 'id_ticket'));
+        $requestReports = null;
+        if(isset($_SESSION['id_user'])) {
+            $requestReports = ReportsManager::read(filter_input(INPUT_GET, 'id_ticket'), $_SESSION['id_user']);
         }
-        include 'View/UniBillet.php';
+        include 'View/SingleTicket.php';
     }
     
-    function addCommentaire() {
-        $comm = new Commentaire();
-        $comm->setText(filter_input(INPUT_POST, 'comm'));
-        $comm->setIdBillet($_SESSION['id_billet']);
-        $comm->setIdUtilisateur($_SESSION['id_utilisateur']);
-        CommentairesManager::create($comm);
-        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    function addComment() {
+        $comment = new Comment();
+        $comment->setText(filter_input(INPUT_POST, 'comment'));
+        $comment->setIdTicket($_SESSION['id_ticket']);
+        $comment->setIdUser($_SESSION['id_user']);
+        CommentsManager::create($comment);
+        header('Location: billet_'.$_SESSION['id_ticket'].'.html');
     }
     
-    function modifCommentaire() {
-        CommentairesManager::update(filter_input(INPUT_GET, 'id_commentaire'), filter_input(INPUT_POST, 'text'));
-        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    function updateComment() {
+        CommentsManager::update(filter_input(INPUT_GET, 'id_comment'), filter_input(INPUT_POST, 'text'));
+        header('Location: billet_'.$_SESSION['id_ticket'].'.html');
     }
     
-    function suppCommentaire() {
-        CommentairesManager::delete(filter_input(INPUT_GET, 'id_commentaire'));
-        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    function deleteComment() {
+        CommentsManager::delete(filter_input(INPUT_GET, 'id_comment'));
+        header('Location: billet_'.$_SESSION['id_ticket'].'.html');
     }
     
-    function createSignalement() {
-        $signalement = new Signalement();
-        $signalement->setIdCommentaire(filter_input(INPUT_GET, 'id_commentaire'));
-        $signalement->setIdUtilisateur($_SESSION['id_utilisateur']);
+    function createReport() {
+        $report = new Report();
+        $report->setIdComment(filter_input(INPUT_GET, 'id_comment'));
+        $report->setIdUser($_SESSION['id_user']);
         
-        SignalementsManager::create($signalement);
-        UsersManager::updateSignal(filter_input(INPUT_GET, 'pseudo'));
+        ReportsManager::create($report);
+        UsersManager::updateReport(filter_input(INPUT_GET, 'pseudo'));
         
-        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+        header('Location: billet_'.$_SESSION['id_ticket'].'.html');
     }
-	
-    function addBillet() {
-        $billet = new Billet();
-        $billet->setTitre(filter_input(INPUT_POST, 'titre'));
-        $billet->setText(filter_input(INPUT_POST, 'text'));
-        $billet->setIdUtilisateur($_SESSION['id_utilisateur']);
+    
+    function addTicket() {
+        $ticket = new Ticket();
+        $ticket->setTitre(filter_input(INPUT_POST, 'titre'));
+        $ticket->setText(filter_input(INPUT_POST, 'text'));
+        $ticket->setIdUtilisateur($_SESSION['id_user']);
         
-        BilletsManager::create($billet);
+        TicketsManager::create($ticket);
         header('Location: listebillets.html');
     }
-	
-	function modifBillet() {
-        BilletsManager::update(($_SESSION['id_billet']), filter_input(INPUT_POST, 'text'));
-        header('Location: billet_'.$_SESSION['id_billet'].'.html');
+    
+    function updateTicket() {
+        TicketsManager::update(($_SESSION['id_ticket']), filter_input(INPUT_POST, 'text'));
+        header('Location: billet_'.$_SESSION['id_ticket'].'.html');
     }
     
-    function suppBillet() {
-        echo $_SESSION['id_billet'];
-        BilletsManager::delete($_SESSION['id_billet']);
+    function deleteTicket() {
+        echo $_SESSION['id_ticket'];
+        TicketsManager::delete($_SESSION['id_ticket']);
         header('Location: listebillets.html');
     }
-	
-	function deconnexion() {
-        unset($_SESSION['id_utilisateur'], $_SESSION['pseudo'], $_SESSION['email'], $_SESSION['image'], $_SESSION['role'], $_SESSION['id_billet']);
+    
+    function signOut() {
+        unset($_SESSION['id_user'], $_SESSION['pseudo'], $_SESSION['email'], $_SESSION['image'], $_SESSION['role'], $_SESSION['id_ticket']);
         session_destroy();
-        listBillets();
-    }
-	
-	function listUtilisateurs() {
-        $requete = UsersManager::readall();
-        include 'View/ListUtilisateurs.php';
+        ticketsList();
     }
     
-    function listSignalements() {
-       $requete = CommentairesManager::readSignal();
-       include 'View/ListeSignalements.php';
+    function usersList() {
+        $request = UsersManager::readall();
+        include 'View/UsersList.php';
+    }
+    
+    function reportsList() {
+       $request = CommentsManager::readReports();
+       include 'View/ReportsList.php';
     }
     
     function updateStatus() {
-        UsersManager::updateStatut(filter_input(INPUT_GET, 'id_utilisateur'));
-        listUtilisateurs();
+        UsersManager::updateStatus(filter_input(INPUT_GET, 'id_user'));
+        usersList();
     }
     
-    function suppUtilisateur() {
+    function deleteUser() {
         unlink('Public/Images/'.filter_input(INPUT_GET, 'image'));
         UsersManager::delete(filter_input(INPUT_GET, 'id'));
         header('Location: listeutilisateurs.html');

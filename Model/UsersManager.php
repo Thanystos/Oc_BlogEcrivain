@@ -4,78 +4,78 @@
     class UsersManager {
         public static function create(User $user) {
             $pdo = DBConnexion::getInstance();
-            $requete = $pdo->prepare('INSERT INTO utilisateurs (pseudo, mdp, email, image) '
-                                     . 'VALUES (:pseudo, :mdp, :email, :image)');
+            $request = $pdo->prepare('INSERT INTO users (pseudo, password, email, image) '
+                                     . 'VALUES (:pseudo, :password, :email, :image)');
             
-            $requete->execute(array('pseudo'=>$user->getPseudo(), 'mdp'=>$user->getMdp(), 'email'=>$user->getEmail(), 'image'=>$user->getImage()));
+            $request->execute(array('pseudo'=>$user->getPseudo(), 'password'=>$user->getPassword(), 'email'=>$user->getEmail(), 'image'=>$user->getImage()));
         }
         
-        public static function read($identifiant, $mdp) {
+        public static function read($id_user, $password) {
             $pdo = DBConnexion::getInstance();
-            $requete = $pdo->prepare('SELECT id, pseudo, mdp, email, image, role, ban '
-                                     . 'FROM utilisateurs '
+            $request = $pdo->prepare('SELECT id, pseudo, password, email, image, role, ban '
+                                     . 'FROM users '
                                      . 'WHERE pseudo = ?');
             
-            $requete->execute(array($identifiant));
-            $resultat = $requete->fetch();
-            if (($resultat)&&((password_verify($mdp, $resultat['mdp'])))) {
-                return $resultat;
+            $request->execute(array($id_user));
+            $result = $request->fetch();
+            if (($result)&&((password_verify($password, $result['password'])))) {
+                return $result;
             }
         }
         
         public static function readId($pseudo) {
             $pdo = DBConnexion::getInstance();
-            $requete = $pdo->prepare('SELECT id '
-                                     . 'FROM utilisateurs '
+            $request = $pdo->prepare('SELECT id '
+                                     . 'FROM users '
                                      . 'WHERE pseudo = ?');
             
-            $requete->execute(array($pseudo));
-            return $requete;
-        }
-		
-		public static function readall() {
-            $pdo = DBConnexion::getInstance();
-            $requete = $pdo->query('SELECT * '
-                                   . 'FROM utilisateurs '
-                                   . 'ORDER BY nb_signal DESC');
-            
-            return $requete;
-        }
-		
-		public static function updateSignal($pseudo) {
-            $pdo = DBConnexion::getInstance();
-            $requete = $pdo->prepare('UPDATE utilisateurs '
-                                     . 'SET nb_signal = nb_signal + 1 '
-                                     . 'WHERE pseudo = ?');
-            
-            $requete->execute(array($pseudo));
+            $request->execute(array($pseudo));
+            return $request;
         }
         
-        public static function updateStatut($id_utilisateur) {
+        public static function readall() {
             $pdo = DBConnexion::getInstance();
-            $requete = $pdo->prepare('UPDATE utilisateurs '
+            $request = $pdo->query('SELECT * '
+                                   . 'FROM users '
+                                   . 'ORDER BY nb_report DESC');
+            
+            return $request;
+        }
+        
+        public static function updateReport($pseudo) {
+            $pdo = DBConnexion::getInstance();
+            $request = $pdo->prepare('UPDATE users '
+                                     . 'SET nb_report = nb_report + 1 '
+                                     . 'WHERE pseudo = ?');
+            
+            $request->execute(array($pseudo));
+        }
+        
+        public static function updateStatus($id_user) {
+            $pdo = DBConnexion::getInstance();
+            $request = $pdo->prepare('UPDATE users '
                                      . 'SET ban = !ban '
                                      . 'WHERE id = ?');
             
-            $requete->execute(array($id_utilisateur));
+            $request->execute(array($id_user));
         }
 
 
-        public static function delete($id) {
+        public static function delete($id_user) {
             $pdo = DBConnexion::getInstance();
-            $requete = $pdo->prepare('DELETE '
-                                     . 'FROM utilisateurs WHERE id = ?');
+            $request = $pdo->prepare('DELETE '
+                                     . 'FROM users WHERE id = ?');
             
-            $requete->execute(array($id));
+            $request->execute(array($id_user));
         }
         
         public static function verify($pseudo) {
             $pdo = DBConnexion::getInstance();
-            $requete = $pdo->prepare('SELECT id '
-                                     . 'FROM utilisateurs WHERE pseudo = ?');
+            $request = $pdo->prepare('SELECT id '
+                                     . 'FROM users WHERE pseudo = ?');
             
-            $requete->execute(array($pseudo));
-            $resultat = $requete->fetch();
-            return $resultat;
+            $request->execute(array($pseudo));
+            $result = $request->fetch();
+            return $result;
         }
     }

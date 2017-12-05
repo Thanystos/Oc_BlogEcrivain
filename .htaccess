@@ -2,27 +2,46 @@
 Options +FollowSymlinks
 # Activation du mod rewrite d'Apache
 RewriteEngine On
-# Réécriture URL Page d'accueil (liste des derniers billets)
+# Réécriture URL de l'index
+RewriteRule ^index\.html$ index.php
+# Réécriture URL de la page d'accueil (liste des derniers billets)
 RewriteRule ^listebillets\.html$ index.php
 # Réécriture URL de la page d'inscription
-RewriteRule ^inscription\.html$ index.php?action=inscriptionView
+RewriteRule ^inscription\.html$ index.php?action=signUpView
 # Réécriture URL de la page de connexion
-RewriteRule ^connexion\.html$ index.php?action=connexionView
-# Réécriture URL de la page de déconnexion
-RewriteRule ^deconnexion\.html$ index.php?action=deconnexion
+RewriteRule ^connexion\.html$ index.php?action=signInView
+# Réécriture URL déconnexion
+RewriteRule ^deconnexion\.html$ index.php?action=signOut
 # Réécriture URL de la page de création de billets
-RewriteRule ^creerbillet\.html$ index.php?action=creerBilletView
+RewriteRule ^creationbillet\.html$ index.php?action=addTicketView
+# Réécriture URL création de billets
+RewriteRule ^creerbillet\.html$ index.php?action=addTicket
+# Réécriture URL modification de billets
+RewriteRule ^modifbillet\.html$ index.php?action=updateTicket
+# Réécriture URL suppression de billets
+RewriteRule ^suppbillet\.html$ index.php?action=deleteTicket
+# Réécriture URL des page liées aux articles
+RewriteRule ^billet_([0-9]+)\.html$ index.php?action=singleTicket&id_ticket=$1
 # Réécriture URL de la page listant les utilisateurs
-RewriteRule ^listeutilisateurs\.html$ index.php?action=listUtilisateurs
+RewriteRule ^listeutilisateurs\.html$ index.php?action=usersList
+# Réécriture URL changement de statut des utilisateurs
+RewriteRule ^changestatut_([0-9]+)\.html$ index.php?action=updateStatus&id_user=$1
+# Réécriture URL suppression d'utilisateurs
+RewriteRule ^supputilisateur_([0-9]+)-([a-zA-Z0-9\.]+)\.html$ index.php?action=deleteUser&id=$1&image=$2
 # Réécriture URL de la page listant les signalements
-RewriteRule ^listesignalements\.html$ index.php?action=listSignalements
-# Réécriture URL de suppression d'utilisateurs
-RewriteRule ^supputilisateur_([0-9]+)-([a-zA-Z0-9\.]+)\.html$ index.php?action=suppUtilisateur&id=$1&image=$2
-# Réécriture URL de la page listant les signalements
-RewriteRule ^listesignalements\.html$ index.php?action=listSignalements
-# Réécriture des URL des articles 
-RewriteRule ^billet_([0-9]+)\.html$ index.php?action=unibillet&id_billet=$1
-# Réécriture des URL d'ajout de commentaires
-RewriteRule ^billet_([0-9]+)\.html$ index.php?action=ajoutCommentaire
-# Réécriture des URL d'ajout de signalements
-RewriteRule ^billet_([0-9]+)-signaler_([0-9]+)\.html$ index.php?action=signaler&id_commentaire=$2 [L]
+RewriteRule ^listesignalements\.html$ index.php?action=reportsList
+# Réécriture des URL ajout de signalements
+RewriteRule ^signaler_([0-9]+)-([a-zA-Z0-9._-]+)\.html$ index.php?action=report&id_comment=$1&pseudo=$2
+# Réécriture des URL ajout de commentaires
+RewriteRule ^ajoutcommentaire\.html$ index.php?action=addComment
+
+
+
+# Réécriture des URL modification de commentaires
+RewriteRule ^modifcommentaire_([0-9]+)\.html$ index.php?action=updateComment&id_comment=$1
+
+
+
+
+# Réécriture des URL suppression de commentaires
+RewriteRule ^suppcommentaire_([0-9]+)\.html$ index.php?action=deleteComment&id_comment=$1

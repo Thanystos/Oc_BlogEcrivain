@@ -3,7 +3,6 @@ $(document).ready(function() {
         $email = $('#email'),
         $champ = $('.champ'),
         $envoi = $('#envoi'),
-        $rafraichir = $('#rafraichir'),
         $regex = /^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
 
     $champ.keyup(function() {
