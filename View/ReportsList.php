@@ -30,7 +30,7 @@
                                 <th><?php echo $comment['text']; ?></th>
                                 <th><?php echo $comment['pseudo']; ?></th>
                                 <th>
-                                    <form method="post" action="billet_<?php echo $comment['id']; ?>.html">
+                                    <form method="post" action="billet_<?php echo $comment['tid']; ?>.html#<?php echo $comment['cid']; ?>">
                                         <input type="submit" class="btn btn-info" value="VOIR PAGE" />
                                     </form>
                                 </th>

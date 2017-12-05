@@ -25,14 +25,15 @@
         
         public static function readReports() {
             $pdo = DBConnexion::getInstance();
-            $request = $pdo->query('SELECT c.text, t.id, t.title, u.pseudo '
+            $request = $pdo->query('SELECT c.id AS cid, c.text, t.id AS tid, t.title, u.pseudo '
                                    . 'FROM comments c '
                                    . 'INNER JOIN tickets t '
                                    . 'ON c.id_ticket = t.id '
                                    . 'INNER JOIN reports s '
                                    . 'ON c.id = s.id_comment '
                                    . 'INNER JOIN users u '
-                                   . 'ON s.id_user = u.id');
+                                   . 'ON s.id_user = u.id '
+                                   . 'ORDER BY tid DESC');
             
             return $request;
         }

@@ -31,6 +31,12 @@
                         <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non...</p>
                         <br><br>
                     </div>
+                                        <div class="ticket">
+                        <h2><a href="billet_69.html">Quatrième billet</a></h2>
+                        <h5><span class="glyphicon glyphicon-time"></span> Publié par Thanystos le 2017-12-05.</h5>
+                        <p><h1 style="text-align: center;"><strong>Un quatrième billet !</strong></h1></p>
+                        <br><br>
+                    </div>
                                     </div>
             </div>
         </div>

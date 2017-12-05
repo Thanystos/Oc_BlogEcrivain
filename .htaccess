@@ -38,7 +38,7 @@ RewriteRule ^ajoutcommentaire\.html$ index.php?action=addComment
 
 
 # Réécriture des URL modification de commentaires
-RewriteRule ^modifcommentaire_([0-9]+)\.html$ index.php?action=updateComment&id_comment=$1
+RewriteRule ^modifcommentaire_([0-9]+)\.html#([0-9]+)$ index.php?action=updateComment&id_comment=$1#$2
 
 
 

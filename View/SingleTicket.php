@@ -92,7 +92,7 @@ if ($requestReports) {
                                 <img src="Public/Images/<?php echo $comment['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar">
                             </div>
                             <div class="col-sm-10">
-                                <h4><?php echo $comment['pseudo']; ?><small> <?php echo $comment['post_date']; ?></small></h4>
+                                <h4 id="<?php echo $comment['id']; ?>"><?php echo $comment['pseudo']; ?><small> <?php echo $comment['post_date']; ?></small></h4>
                                 <div class="comm">
                                     <?php echo nl2br(html_entity_decode(htmlspecialchars($comment['text']))); ?>
                                     <br><br>
