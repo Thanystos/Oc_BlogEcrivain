@@ -35,7 +35,7 @@
         <script src="Public/JS/tinymce/tinymce.min.js"></script>
         <script type="text/javascript">
             tinymce.init({
-                selector:'textarea', language : 'fr_FR', forced_root_block : false, force_br_newlines : true, force_p_newlines : false
+                selector:'textarea', language : 'fr_FR', forced_root_block : false, force_br_newlines : true, force_p_newlines : false, entity_encoding : 'raw', encoding: 'UTF-8' 
             });
         </script>
         <script type="text/javascript">

@@ -18,6 +18,7 @@ if ($requestReports) {
         <title>Affichage de l'article <?php $ticket['titre']; ?></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="Public/CSS/Main.css">
     </head>
@@ -30,10 +31,10 @@ if ($requestReports) {
                     <h4><small>BILLET UNIQUE</small></h4>
                     <hr>
                     <div class="billet">
-                        <h2><?php echo htmlspecialchars($ticket['title']); ?></h2>
+                        <h2><?php echo html_entity_decode(htmlspecialchars($ticket['title'])); ?></h2>
                         <h5><span class="glyphicon glyphicon-time"></span> Publié par <?php echo $ticket['pseudo']; ?> le <?php echo $ticket['post_date']; ?>.</h5>
                         <div class="billetcontent">
-                            <?php echo nl2br(htmlspecialchars($ticket['text'])); ?>
+                            <?php echo nl2br(html_entity_decode((htmlspecialchars($ticket['text'])))); ?>
                             <br><br>
                             <?php if ((isset($_SESSION['role'])) && ($_SESSION['role'] == 2)) { ?>
                                 <input type="button" class="btn btn-warning update" value="Modifier" />
@@ -93,7 +94,7 @@ if ($requestReports) {
                             <div class="col-sm-10">
                                 <h4><?php echo $comment['pseudo']; ?><small> <?php echo $comment['post_date']; ?></small></h4>
                                 <div class="comm">
-                                    <?php echo nl2br(htmlspecialchars($comment['text'])); ?>
+                                    <?php echo nl2br(html_entity_decode(htmlspecialchars($comment['text']))); ?>
                                     <br><br>
                                     <?php if ((isset($_SESSION['pseudo'])) && ($_SESSION['pseudo'] == $comment['pseudo'])) { ?>
                                         <input type="button" class="btn btn-warning update" value="Modifier" />
@@ -137,7 +138,7 @@ if ($requestReports) {
         <script type="text/javascript">
             $(document).ready(function () {
                 tinymce.init({
-                    selector: 'textarea', language: 'fr_FR', forced_root_block: false, force_br_newlines: true, force_p_newlines: false
+                     selector: 'textarea', language: 'fr_FR', forced_root_block: false, force_br_newlines: true, force_p_newlines: false, entity_encoding : 'raw', encoding: 'UTF-8'
                 });
             });
         </script>

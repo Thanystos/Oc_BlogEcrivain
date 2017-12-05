@@ -15,9 +15,9 @@
                     <hr>
                     <?php while ($ticket = $request->fetch()) { ?>
                     <div class="ticket">
-                        <h2><a href="billet_<?php echo $ticket['id']; ?>.html"><?php echo htmlspecialchars($ticket['title']); ?></a></h2>
+                        <h2><a href="billet_<?php echo $ticket['id']; ?>.html"><?php echo html_entity_decode(htmlspecialchars($ticket['title'])); ?></a></h2>
                         <h5><span class="glyphicon glyphicon-time"></span> Publié par <?php echo $ticket['pseudo']; ?> le <?php echo $ticket['post_date']; ?>.</h5>
-                        <p><?php echo nl2br(htmlspecialchars(resume($ticket['text']))); ?></p>
+                        <p><?php echo nl2br(html_entity_decode(htmlspecialchars(resume($ticket['text'])))); ?></p>
                         <br><br>
                     </div>
                     <?php }
