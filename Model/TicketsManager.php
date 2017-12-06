@@ -22,13 +22,13 @@
             return $request;
         }
 
-        public static function readAll() {
+        public static function readAll($page) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->query('SELECT t.id, t.title, t.text, u.pseudo, t.post_date '
                                    . 'FROM tickets t '
                                    . 'INNER JOIN users u '
                                    . 'ON t.id_user = u.id '
-                                   . 'ORDER BY post_date DESC LIMIT 0, 5');
+                                   . 'ORDER BY post_date DESC LIMIT '.(($page - 1) * 5).', 5');
 
             return $request;
         }
@@ -49,5 +49,13 @@
                                      . 'WHERE id = ?');
 
             $request->execute(array($id_ticket));
+        }
+        
+        public static function count() {
+            $pdo = DBConnexion::getInstance();
+            $request = $pdo->query('SELECT COUNT(id) '
+                                   . 'FROM tickets');
+            
+            return $request;
         }
     }

@@ -1,19 +1,8 @@
-<?php if($_SESSION['role']!= 2) {
-    header('Location: listebillets.html');
-} ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Création d'un nouveau billet</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Public/CSS/Main.css">
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="row content">
-                <?php include 'nav.php'; ?>
+                <?php if($_SESSION['role']!= 2) {
+                    header('Location: listebillets.html');
+                }
+                    include 'nav.php';
+                ?>
                 <div class="col-sm-9">
                     <h4><small>CRÉATION BILLET</small></h4>
                     <hr>
@@ -39,7 +28,6 @@
             });
         </script>
         <script type="text/javascript">
-            $(".nav li:nth-child(2)").addClass('active');
+            $('.nav li:nth-child(2)').addClass('active');
+            $('title').html('Création d`\'un nouveau billet');
         </script>
-    </body>
-</html>

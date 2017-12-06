@@ -10,23 +10,8 @@ if ($requestReports) {
         array_push($reportsTab, $report['id_comment']);
     }
 }
-
-?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Affichage de l'article <?php $ticket['titre']; ?></title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Public/CSS/Main.css">
-    </head>
-
-    <body>
-        <div class="container-fluid">
-            <div class="row content">
-                <?php include 'nav.php'; ?>
+                include 'nav.php';
+                ob_start(); ?>                
                 <div class="col-sm-9">
                     <h4><small>BILLET UNIQUE</small></h4>
                     <hr>
@@ -80,8 +65,7 @@ if ($requestReports) {
                     <br><br>
                     <p>
                         <span class="badge">
-                            <?php $nbComments = $requestNbComments->fetch();
-                            echo $nbComments[0]; ?>
+                            <?php echo $nbComments[0]; ?>
                         </span> Commentaires :
                     </p>
                     <br>
@@ -127,9 +111,15 @@ if ($requestReports) {
                                 </div> <?php } ?>
                             </div>
                         </div>
+                        
                         <br><br>
                     <?php } ?>
                     <?php $requestComments->closeCursor(); ?>
+                    <div class="navigation" style="text-align: center">
+                        <?php for($i=1; $i<=$_SESSION['nbPageComment']; $i++) { ?>
+                            <a href="billet_<?php echo $_SESSION['id_ticket']; ?>-<?php echo $i; ?>.html"><?php echo $i; ?></a> /
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -144,6 +134,7 @@ if ($requestReports) {
         </script>
         <script type="text/javascript">
             $(document).ready(function () {
+                $('title').html('Affichage d\'un billet');
                 $('.update').click(function () {
                     $(this).parent().css('display', 'none');
                     $(this).parent().next().css('display', 'block');
@@ -155,3 +146,5 @@ if ($requestReports) {
                 });
             });
         </script>
+        
+        

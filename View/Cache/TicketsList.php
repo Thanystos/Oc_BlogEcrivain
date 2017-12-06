@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Derniers billets</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Public/CSS/Main.css">
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="row content">
                 <div class="col-sm-9">
                     <h4><small>DERNIERS BILLETS</small></h4>
                     <hr>
@@ -37,7 +25,17 @@
                         <p><h1 style="text-align: center;"><strong>Un quatrième billet !</strong></h1></p>
                         <br><br>
                     </div>
+                                        <div class="ticket">
+                        <h2><a href="billet_70.html">Cinquième billet</a></h2>
+                        <h5><span class="glyphicon glyphicon-time"></span> Publié par Thanystos le 2017-12-05.</h5>
+                        <p><h1 style="text-align: center;"><strong>Son contenu</strong></h1></p>
+                        <br><br>
+                    </div>
+                                        <div class="navigation" style="text-align: center">
+                                            <a href="listebillets_1.html">1</a> /
+                                            <a href="listebillets_2.html">2</a> /
                                     </div>
+                </div>
             </div>
         </div>
             </body>
@@ -48,4 +46,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>        <script type="text/javascript">
             $(".nav li:nth-child(1)").addClass('active');
+            $('title').html('Liste des derniers billets');
         </script>

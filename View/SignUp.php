@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Page d'inscription</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Public/CSS/Main.css">
-        <link rel="stylesheet" href="Public/CSS/Inscription.css" />
-        <link rel="stylesheet" href="Public/CSS/Connexion.css">
-    </head>
-<body>
-        <div class="container-fluid">
-            <div class="row content">
+                <link rel="stylesheet" href="Public/CSS/Inscription.css" />
+                <link rel="stylesheet" href="Public/CSS/Connexion.css">
                 <?php include 'nav.php'; ?>
                 <div class="col-sm-9">
                     <h4><small>INSCRIPTION</small></h4>
-
+                    <hr>
                     <div class="imgcontainer">
                         <img src="Public/Images/avatar.png" alt="Avatar" class="avatar">
                     </div>
@@ -32,6 +20,7 @@
 
                             <label for="image"><b>Image de profil</b></label>
                             <input type="file" name="image" id="image" />
+                            <br>
 
                             <button type="submit">Valider inscription</button>
                         </div>
@@ -41,3 +30,7 @@
         </div>
     <?php include 'footer.php'; ?>
     <script src="Public/JS/Inscription.js"></script>
+    <script type="text/javascript">
+            $('.nav li:nth-child(2)').addClass('active');
+            $('title').html('Page d\'inscription');
+    </script>

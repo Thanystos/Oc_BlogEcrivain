@@ -44,16 +44,4 @@ $(document).ready(function() {
            $erreur.css('display', 'block');
        }
     });
-    
-    $rafraichir.click(function(e){
-        $champ.css({
-            borderColor : '#ccc',
-            color : '#555'
-        });
-        $email.css({
-            borderColor : '#ccc',
-            color : '#555'
-        });
-        $erreur.css('display', 'none');
-    });
 });

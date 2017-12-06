@@ -84,14 +84,23 @@ session_start();
     
     function ticketsList() {
         $cache = 'View/Cache/TicketsList.php';
-        $expire = time() -2;
+        $expire = time() -1;
 
         if(file_exists($cache) && filemtime($cache) > $expire) {
+            echo '1';
             include 'View/nav.php';
             readfile($cache);
         }
         else {
-            $request = TicketsManager::readAll();
+            $requestNbTickets = TicketsManager::count();
+            $nbTickets = $requestNbTickets->fetch();
+            $_SESSION['nbPageTicket'] = ceil($nbTickets[0] / 5);
+            if(filter_input(INPUT_GET, 'page')&&(filter_input(INPUT_GET, 'page') > 0)&&(filter_input(INPUT_GET, 'page') <= $_SESSION['nbPageTicket'])) {
+                $request = TicketsManager::readAll(filter_input(INPUT_GET, 'page'));
+            }
+            else {
+                $request = TicketsManager::readAll(1);
+            }
             function resume($string) {
                 if(strlen($string) >= 200) {
                     $string = substr($string, 0, 200);
@@ -106,16 +115,24 @@ session_start();
             ob_start();
             include 'View/TicketsList.php';
             $page = ob_get_contents();
-            ob_end_clean();
-            file_put_contents($cache, $page) ;
-            echo $page ;
+            file_put_contents($cache, $page);
         }
     }
+                            
+    
+    
     
     function singleTicket() {
         $requestTicket = TicketsManager::read(filter_input(INPUT_GET, 'id_ticket'));
         $requestNbComments = CommentsManager::count(filter_input(INPUT_GET, 'id_ticket'));
-        $requestComments = CommentsManager::read(filter_input(INPUT_GET, 'id_ticket'));
+        $nbComments = $requestNbComments->fetch();
+        $_SESSION['nbPageComment'] = ceil($nbComments[0] / 5);
+        if(filter_input(INPUT_GET, 'page')&&(filter_input(INPUT_GET, 'page') > 0)&&(filter_input(INPUT_GET, 'page') <= $_SESSION['nbPageComment'])) {
+            $requestComments = CommentsManager::read(filter_input(INPUT_GET, 'id_ticket'), filter_input(INPUT_GET, 'page'));
+        }
+        else {
+            $requestComments = CommentsManager::read(filter_input(INPUT_GET, 'id_ticket'), 1);
+        }
         $requestReports = null;
         if(isset($_SESSION['id_user'])) {
             $requestReports = ReportsManager::read(filter_input(INPUT_GET, 'id_ticket'), $_SESSION['id_user']);

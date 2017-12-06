@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Derniers billets</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Public/CSS/Main.css">
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="row content">
                 <div class="col-sm-9">
                     <h4><small>DERNIERS BILLETS</small></h4>
                     <hr>
@@ -22,10 +10,16 @@
                     </div>
                     <?php }
                     $request->closeCursor(); ?>
+                    <div class="navigation" style="text-align: center">
+                    <?php for($i=1; $i<=$_SESSION['nbPageTicket']; $i++) { ?>
+                        <a href="listebillets_<?php echo $i; ?>.html"><?php echo $i; ?></a> /
+                    <?php } ?>
+                </div>
                 </div>
             </div>
         </div>
         <?php include 'footer.php'; ?>
         <script type="text/javascript">
             $(".nav li:nth-child(1)").addClass('active');
+            $('title').html('Liste des derniers billets');
         </script>

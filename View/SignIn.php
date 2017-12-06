@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Page de Connexion</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="Public/CSS/Main.css">
-        <link rel="stylesheet" href="Public/CSS/Connexion.css">
-    </head>
-    
-    <body>
-        <div class="container-fluid">
-            <div class="row content">
+                <link rel="stylesheet" href="Public/CSS/Connexion.css">
                 <?php include 'nav.php'; ?>
                 <div class="col-sm-9">
                     <h4><small>CONNEXION</small></h4>
@@ -39,4 +26,8 @@
                 </div>
             </div>
         </div>
-        <?php include 'footer.php';
+        <?php include 'footer.php'; ?>
+        <script type="text/javascript">
+            $('.nav li:nth-child(2)').addClass('active');
+            $('title').html('Page de connexion');
+        </script>

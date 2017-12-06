@@ -10,14 +10,14 @@
             $request->execute(array('text'=>$comment->getText(), 'id_ticket'=>$comment->getIdTicket(), 'id_user'=>$comment->getIdUser()));
         }
 
-        public static function read($id_ticket) {
+        public static function read($id_ticket, $page) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('SELECT c.id, c.text, u.pseudo, u.image, c.post_date '
                                      . 'FROM comments c '
                                      . 'INNER JOIN users u '
                                      . 'ON c.id_user = u.id '
                                      . 'WHERE c.id_ticket = ? '
-                                     . 'ORDER BY post_date DESC');
+                                     . 'ORDER BY post_date DESC LIMIT '.(($page - 1) * 5).', 5');
             
             $request->execute(array($id_ticket));
             return $request;
