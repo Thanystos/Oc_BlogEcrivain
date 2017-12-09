@@ -39,7 +39,9 @@
         updateStatus();
     }elseif(filter_input(INPUT_GET, 'action') == 'deleteUser') {
         deleteUser();
+    }elseif(filter_input(INPUT_GET, 'action') == 'profilePage') {
+        profilePage();
     }
     else {
         ticketsList();
-    }   
+    }

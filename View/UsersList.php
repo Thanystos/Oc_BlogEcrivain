@@ -21,7 +21,7 @@
                         <tbody>
                             <?php while ($user = $request->fetch()) { ?>
                             <tr>
-                                <th><?php echo $user['pseudo']; ?></th>
+                                <th id="<?php echo $user['pseudo']; ?>"><?php echo $user['pseudo']; ?></th>
                                 <th><?php echo $user['email']; ?></th>
                                 <th><?php echo $user['image']; ?></th>
                                 <th><?php if($user['role'] == 1) {

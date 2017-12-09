@@ -1,6 +1,5 @@
 $(document).ready(function() {
-    var $erreur = $('#erreur'),
-        $email = $('#email'),
+    var $email = $('#email'),
         $champ = $('.champ'),
         $envoi = $('#envoi'),
         $regex = /^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
@@ -41,7 +40,6 @@ $(document).ready(function() {
        }
        else {
            e.preventDefault();
-           $erreur.css('display', 'block');
        }
     });
 });

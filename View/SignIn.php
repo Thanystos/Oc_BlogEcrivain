@@ -1,3 +1,11 @@
+                <?php if(isset($_SESSION['erreur'])) { ?>
+                    <script>
+                        var session = eval('(<?php echo json_encode($_SESSION) ?>)');
+                        alert(session.erreur);
+                    </script>
+                <?php 
+                    unset($_SESSION['erreur']);
+                } ?>
                 <link rel="stylesheet" href="Public/CSS/Connexion.css">
                 <?php include 'nav.php'; ?>
                 <div class="col-sm-9">

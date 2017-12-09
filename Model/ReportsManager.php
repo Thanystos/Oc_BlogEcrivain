@@ -21,4 +21,19 @@
             $request->execute(array($id_ticket, $id_user));
             return $request;
         }
+        
+        public static function readReports() {
+            $pdo = DBConnexion::getInstance();
+            $request = $pdo->query('SELECT u.pseudo '
+                                   . 'FROM comments c '
+                                   . 'INNER JOIN tickets t '
+                                   . 'ON c.id_ticket = t.id '
+                                   . 'INNER JOIN reports s '
+                                   . 'ON c.id = s.id_comment '
+                                   . 'INNER JOIN users u '
+                                   . 'ON s.id_user = u.id '
+                                   . 'ORDER BY t.id DESC');
+            
+            return $request;
+        }
     }

@@ -39,54 +39,52 @@ session_start();
                         $request = UsersManager::readId($_SESSION['pseudo']);
                         $id = $request->fetch();
                         $_SESSION['id_user'] = $id['id'];
-                        echo 'Inscription réussie !';
                         ticketsList();
                     }
                     else {
-                        echo "Format de l'image incorrect !";
+                        $_SESSION['erreur'] = 'Format image incorrect !';
+                        header('Location: inscription.html');
                     }
                 }
                 else {
-                    echo 'Taille de l\'image excessive !';
+                    $_SESSION['erreur'] = 'Taille image excessive !';
+                    header('Location: inscription.html');
                 }
                 
             }
             else {
-                echo "Pseudo déjà existant !";
+                $_SESSION['erreur'] = 'Pseudo déjà existant !';
+                header('Location: inscription.html');
             }
-            
         }
         else {
-            echo 'Erreur lors de l\'envoi !';
+            $_SESSION['erreur'] = 'Erreur envoi !';
+            header('Location: inscription.html');
         }
     }
     
     function signIn() {
-        if(filter_input(INPUT_POST, 'pseudo')&&(filter_input(INPUT_POST, 'password'))){
-            $request = UsersManager::read(filter_input(INPUT_POST, 'pseudo'), filter_input(INPUT_POST, 'password'));
-            if($request) {
-                $_SESSION['id_user'] = $request['id'];
-                $_SESSION['pseudo'] = $request['pseudo'];
-                $_SESSION['email'] = $request['email'];
-                $_SESSION['image'] = $request['image'];
-                $_SESSION['role'] = $request['role'];
-                $_SESSION['ban'] = $request['ban'];
-                ticketsList();
-            }
-            else {
-                echo 'Mauvais identifiant ou mot de passe !';
-            }
+        $request = UsersManager::read(filter_input(INPUT_POST, 'pseudo'), filter_input(INPUT_POST, 'password'));
+        if($request) {
+            $_SESSION['id_user'] = $request['id'];
+            $_SESSION['pseudo'] = $request['pseudo'];
+            $_SESSION['email'] = $request['email'];
+            $_SESSION['image'] = $request['image'];
+            $_SESSION['role'] = $request['role'];
+            $_SESSION['ban'] = $request['ban'];
+            ticketsList();
         }
         else {
-            echo 'Tous les champs ne sont pas remplis';
+            $_SESSION['erreur'] = 'Mauvais identifiant ou mot de passe !';
+            header('Location: connexion.html');
         }
     }
     
     function ticketsList() {
         $cache = 'View/Cache/TicketsList.php';
-        $expire = time() -1;
+        $expire = time() - 5;
 
-        if(file_exists($cache) && filemtime($cache) > $expire) {
+        if((file_exists($cache)) && (filemtime($cache) > $expire) && (filter_input(INPUT_GET, 'page') == 1 )) {
             echo '1';
             include 'View/nav.php';
             readfile($cache);
@@ -111,17 +109,20 @@ session_start();
                     return $string;
                 }
             }
-            include 'View/nav.php';
-            ob_start();
-            include 'View/TicketsList.php';
-            $page = ob_get_contents();
-            file_put_contents($cache, $page);
+            if(filter_input(INPUT_GET, 'page') == 1) {
+                include 'View/nav.php';
+                ob_start();
+                include 'View/TicketsList.php';
+                $page = ob_get_contents();
+                file_put_contents($cache, $page);
+            }
+            else {
+                include 'View/nav.php';
+                include 'View/TicketsList.php';
+            }
         }
     }
-                            
-    
-    
-    
+
     function singleTicket() {
         $requestTicket = TicketsManager::read(filter_input(INPUT_GET, 'id_ticket'));
         $requestNbComments = CommentsManager::count(filter_input(INPUT_GET, 'id_ticket'));
@@ -129,9 +130,11 @@ session_start();
         $_SESSION['nbPageComment'] = ceil($nbComments[0] / 5);
         if(filter_input(INPUT_GET, 'page')&&(filter_input(INPUT_GET, 'page') > 0)&&(filter_input(INPUT_GET, 'page') <= $_SESSION['nbPageComment'])) {
             $requestComments = CommentsManager::read(filter_input(INPUT_GET, 'id_ticket'), filter_input(INPUT_GET, 'page'));
+            $_SESSION['page'] = filter_input(INPUT_GET, 'page');
         }
         else {
             $requestComments = CommentsManager::read(filter_input(INPUT_GET, 'id_ticket'), 1);
+            $_SESSION['page'] = 1;
         }
         $requestReports = null;
         if(isset($_SESSION['id_user'])) {
@@ -167,7 +170,7 @@ session_start();
         ReportsManager::create($report);
         UsersManager::updateReport(filter_input(INPUT_GET, 'pseudo'));
         
-        header('Location: billet_'.$_SESSION['id_ticket'].'.html');
+        header('Location: billet_'.$_SESSION['id_ticket'].'-'.$_SESSION['page'].'.html');
     }
     
     function addTicket() {
@@ -203,7 +206,8 @@ session_start();
     }
     
     function reportsList() {
-       $request = CommentsManager::readReports();
+       $requestComments = CommentsManager::readReports();
+       $requestReports = ReportsManager::readReports();
        include 'View/ReportsList.php';
     }
     
@@ -216,4 +220,10 @@ session_start();
         unlink('Public/Images/'.filter_input(INPUT_GET, 'image'));
         UsersManager::delete(filter_input(INPUT_GET, 'id'));
         header('Location: listeutilisateurs.html');
+    }
+    
+    function profilePage() {
+        $requestInfos = UsersManager::readInfos(filter_input(INPUT_GET, 'pseudo'));
+        $requestComments = CommentsManager::readPseudo(filter_input(INPUT_GET, 'pseudo'));
+        include 'View/Profile.php';
     }

@@ -12,7 +12,7 @@
 
         public static function read($id_ticket) {
             $pdo = DBConnexion::getInstance();
-            $request = $pdo->prepare('SELECT t.id, t.title, t.text, u.pseudo, t.post_date '
+            $request = $pdo->prepare("SELECT t.id, t.title, t.text, u.pseudo, DATE_FORMAT(t.post_date, '%d/%m/%Y') AS post_date "
                                      . 'FROM tickets t '
                                      . 'INNER JOIN users u '
                                      . 'ON t.id_user = u.id '
@@ -24,7 +24,7 @@
 
         public static function readAll($page) {
             $pdo = DBConnexion::getInstance();
-            $request = $pdo->query('SELECT t.id, t.title, t.text, u.pseudo, t.post_date '
+            $request = $pdo->query("SELECT t.id, t.title, t.text, u.pseudo, DATE_FORMAT(t.post_date, '%d/%m/%Y à %Hh%imin%ss') AS post_date "
                                    . 'FROM tickets t '
                                    . 'INNER JOIN users u '
                                    . 'ON t.id_user = u.id '

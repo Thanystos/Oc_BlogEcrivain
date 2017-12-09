@@ -11,24 +11,28 @@
                             <tr>
                                 <th>Billet</th>
                                 <th>Commentaire</th>
+                                <th>Écrit par</th>
                                 <th>Signalé par</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($comment = $request->fetch()) { ?>
+                            <?php while (($comment = $requestComments->fetch()) && ($report = $requestReports->fetch())) { ?>
                             <tr>
                                 <th><?php echo $comment['title']; ?></th>
                                 <th><?php echo $comment['text']; ?></th>
-                                <th><?php echo $comment['pseudo']; ?></th>
+                                <th><a href="listeutilisateurs.html#<?php echo $comment['pseudo']; ?>"><?php echo $comment['pseudo']; ?></a></th>
+                                <th><a href="listeutilisateurs.html#<?php echo $report['pseudo']; ?>"><?php echo $report['pseudo']; ?></a></th>
                                 <th>
-                                    <form method="post" action="billet_<?php echo $comment['tid']; ?>.html#<?php echo $comment['cid']; ?>">
-                                        <input type="submit" class="btn btn-info" value="VOIR PAGE" />
+                                    <form id="supprimer" method="post" action="suppcommentaire_<?php echo $comment['id']; ?>.html">
+                                        <input type="submit" class="btn btn-danger" value="SUPPRIMER" />
                                     </form>
                                 </th>
+
                             </tr>
-                            <?php } 
-                            $request->closeCursor(); ?>
+                            <?php }
+                            $requestComments->closeCursor();
+                            $requestReports->closeCursor(); ?>
                         </tbody>
                     </table>
                 </div>

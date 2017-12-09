@@ -42,7 +42,17 @@
             return $request;
         }
         
-        public static function updateReport($pseudo) {
+        public static function readInfos($pseudo) {
+            $pdo = DBConnexion::getInstance();
+            $request = $pdo->prepare('SELECT pseudo, email, image, nb_report '
+                                     . 'FROM users '
+                                     . 'WHERE pseudo = ?');
+            
+            $request->execute(array($pseudo));
+            return $request;
+        }
+
+                public static function updateReport($pseudo) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('UPDATE users '
                                      . 'SET nb_report = nb_report + 1 '

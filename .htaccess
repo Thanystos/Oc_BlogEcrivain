@@ -39,6 +39,9 @@ RewriteRule ^signaler_([0-9]+)-([a-zA-Z0-9._-]+)\.html$ index.php?action=report&
 # Réécriture des URL ajout de commentaires
 RewriteRule ^ajoutcommentaire\.html$ index.php?action=addComment
 # Réécriture des URL modification de commentaires
-RewriteRule ^modifcommentaire_([0-9]+)\.html#([0-9]+)$ index.php?action=updateComment&id_comment=$1#$2
+RewriteRule ^modifcommentaire_([0-9]+)\.html$ index.php?action=updateComment&id_comment=$1
 # Réécriture des URL suppression de commentaires
 RewriteRule ^suppcommentaire_([0-9]+)\.html$ index.php?action=deleteComment&id_comment=$1
+#Réécriture des URL des pages de profil utilisateur
+RewriteRule ^profil_([a-zA-Z0-9._-]+)\.html$ index.php?action=profilePage&pseudo=$1
+

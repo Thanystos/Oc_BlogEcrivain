@@ -12,7 +12,7 @@
 
         public static function read($id_ticket, $page) {
             $pdo = DBConnexion::getInstance();
-            $request = $pdo->prepare('SELECT c.id, c.text, u.pseudo, u.image, c.post_date '
+            $request = $pdo->prepare("SELECT c.id, c.text, u.pseudo, u.image, DATE_FORMAT(c.post_date, '%d/%m/%Y à %Hh%imin%ss') AS post_date "
                                      . 'FROM comments c '
                                      . 'INNER JOIN users u '
                                      . 'ON c.id_user = u.id '
@@ -23,17 +23,31 @@
             return $request;
         }
         
+        public static function readPseudo($pseudo) {
+            $pdo = DBConnexion::getInstance();
+            $request = $pdo->prepare('SELECT c.text, c.post_date AS cpost_date, t.title, t.post_date AS tpost_date '
+                                     . 'FROM users u '
+                                     . 'INNER JOIN comments c '
+                                     . 'ON u.id = c.id_user '
+                                     . 'INNER JOIN tickets t '
+                                     . 'ON c.id_ticket = t.id '
+                                     . 'WHERE u.pseudo = ?');
+            
+            $request->execute(array($pseudo));
+            return $request;
+        }
+        
         public static function readReports() {
             $pdo = DBConnexion::getInstance();
-            $request = $pdo->query('SELECT c.id AS cid, c.text, t.id AS tid, t.title, u.pseudo '
+            $request = $pdo->query('SELECT c.id, c.text, t.title, u.pseudo '
                                    . 'FROM comments c '
                                    . 'INNER JOIN tickets t '
                                    . 'ON c.id_ticket = t.id '
                                    . 'INNER JOIN reports s '
                                    . 'ON c.id = s.id_comment '
                                    . 'INNER JOIN users u '
-                                   . 'ON s.id_user = u.id '
-                                   . 'ORDER BY tid DESC');
+                                   . 'ON c.id_user = u.id '
+                                   . 'ORDER BY t.id DESC');
             
             return $request;
         }

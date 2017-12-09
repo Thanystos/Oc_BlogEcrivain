@@ -1,3 +1,11 @@
+                <?php if(isset($_SESSION['erreur'])) { ?>
+                    <script>
+                        var session = eval('(<?php echo json_encode($_SESSION) ?>)');
+                        alert(session.erreur);
+                    </script>
+                <?php 
+                    unset($_SESSION['erreur']);
+                } ?>
                 <link rel="stylesheet" href="Public/CSS/Inscription.css" />
                 <link rel="stylesheet" href="Public/CSS/Connexion.css">
                 <?php include 'nav.php'; ?>
@@ -7,7 +15,7 @@
                     <div class="imgcontainer">
                         <img src="Public/Images/avatar.png" alt="Avatar" class="avatar">
                     </div>
-                    <form method="post" action="index.html" enctype="multipart/form-data">
+                    <form id="envoi" method="post" action="index.html" enctype="multipart/form-data">
                         <div class="container">
                             <label><b>Identifiant</b></label>
                             <input type="text" placeholder="Entrez votre identifiant" class="champ" name="pseudo" required>
