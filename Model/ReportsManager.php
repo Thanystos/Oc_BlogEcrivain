@@ -2,6 +2,8 @@
     include_once 'DBConnexion.php';
     
     class ReportsManager {
+        
+        // Requête permettant de créer un signalement (Utile pour la page d'un billet unique)
         public static function create(Report $report) {
            $pdo = DBConnexion::getInstance();
            $request = $pdo->prepare('INSERT INTO reports(id_comment, id_user, date) '
@@ -10,6 +12,7 @@
            $request->execute(array('id_comment' => $report->getIdComment(), 'id_user' => $report->getIdUser()));
         }
         
+        // Requête permettant de récupérer tous les signalements d'un utilisateur et d'un billet donnés (Utile pour la page d'un billet unique)
         public static function read($id_ticket, $id_user) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('SELECT r.id_comment '
@@ -22,6 +25,7 @@
             return $request;
         }
         
+        // Requête permettant de récupérer le nom de toutes les personnes signalées pour des commentaires (Utile pour la page 'liste des signalements')
         public static function readReports() {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->query('SELECT u.pseudo '

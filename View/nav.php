@@ -24,14 +24,14 @@
                                     <a href="deconnexion.html">Se Déconnecter</a>
                                 <?php }
                                 else { ?>
-                                    <a href="connexion.html">Se Connecter</a>
+                                    <a href="formulaireconnexion.html">Se Connecter</a>
                                 <?php } ?>
                         </li>       
                     </ul><br>
                     <?php if(isset($_SESSION['pseudo'])){ ?>
                         <div class="text-center">
-                            <h3><?php echo $_SESSION['pseudo']; ?></h3>
-                            <img src="Public/Images/<?php echo $_SESSION['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar">
+                            <h3><a href="profil_<?php echo $_SESSION['pseudo']; ?>.html"><?php echo $_SESSION['pseudo']; ?></a></h3>
+                            <a href="profil_<?php echo $_SESSION['pseudo']; ?>.html"><img src="Public/Images/<?php echo $_SESSION['pseudo']; ?>/<?php echo $_SESSION['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar"></a>
                         </div>
                     <?php } ?>
                 </div>

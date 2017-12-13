@@ -1,8 +1,4 @@
-                <?php if($_SESSION['role']!= 2) {
-                    header('Location: listebillets.html');
-                }
-                    include 'nav.php';
-                ?>
+                <?php include 'nav.php'; ?>
                 <div class="col-sm-9">
                     <h4><small>LISTE DES SIGNALEMENTS</small></h4>
                     <hr>

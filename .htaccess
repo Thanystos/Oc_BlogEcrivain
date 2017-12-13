@@ -9,9 +9,13 @@ RewriteRule ^listebillets\.html$ index.php?page=1
 # Réécriture URL de la page d'accueil (liste des derniers billets)
 RewriteRule ^listebillets_([0-9]+)\.html$ index.php?page=$1
 # Réécriture URL de la page d'inscription
-RewriteRule ^inscription\.html$ index.php?action=signUpView
+RewriteRule ^inscription\.html$ index.php?action=signUp
+# Réécriture URL de validation d'inscription
+RewriteRule ^formulaireinscription\.html$ index.php?action=signUpView
 # Réécriture URL de la page de connexion
-RewriteRule ^connexion\.html$ index.php?action=signInView
+RewriteRule ^connexion\.html$ index.php?action=signIn
+# Réécriture URL de la page de connexion
+RewriteRule ^formulaireconnexion\.html$ index.php?action=signInView
 # Réécriture URL déconnexion
 RewriteRule ^deconnexion\.html$ index.php?action=signOut
 # Réécriture URL de la page de création de billets
@@ -31,7 +35,7 @@ RewriteRule ^listeutilisateurs\.html$ index.php?action=usersList
 # Réécriture URL changement de statut des utilisateurs
 RewriteRule ^changestatut_([0-9]+)\.html$ index.php?action=updateStatus&id_user=$1
 # Réécriture URL suppression d'utilisateurs
-RewriteRule ^supputilisateur_([0-9]+)-([a-zA-Z0-9\.]+)\.html$ index.php?action=deleteUser&id=$1&image=$2
+RewriteRule ^supputilisateur_([0-9]+)-([a-zA-Z0-9\.]+)\.html$ index.php?action=deleteUser&id=$1&pseudo=$2
 # Réécriture URL de la page listant les signalements
 RewriteRule ^listesignalements\.html$ index.php?action=reportsList
 # Réécriture des URL ajout de signalements
@@ -44,4 +48,13 @@ RewriteRule ^modifcommentaire_([0-9]+)\.html$ index.php?action=updateComment&id_
 RewriteRule ^suppcommentaire_([0-9]+)\.html$ index.php?action=deleteComment&id_comment=$1
 #Réécriture des URL des pages de profil utilisateur
 RewriteRule ^profil_([a-zA-Z0-9._-]+)\.html$ index.php?action=profilePage&pseudo=$1
+#Réécriture des URL des pages de profil utilisateur
+RewriteRule ^modifemail\.html$ index.php?action=updateEmail
+#Réécriture des URL des pages de profil utilisateur
+RewriteRule ^modifmdp\.html$ index.php?action=updatePassword
+#Réécriture des URL des pages de profil utilisateur
+RewriteRule ^modifimage\.html$ index.php?action=updateImage
+#En cas de document introuvable renvoie sur la page 404.html
+ErrorDocument 404 http://localhost/ObjPHP/BlogEcrivain/index.php?action=404
+
 

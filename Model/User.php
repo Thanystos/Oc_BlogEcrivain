@@ -4,7 +4,10 @@
                   $pseudo,
                   $password,
                   $email,
-                  $image;
+                  $image,
+                  $nbReport,
+                  $ban,
+                  $role;
         
           function getId() {
               return $this->id;
@@ -25,6 +28,18 @@
           function getImage() {
               return $this->image;
           }
+          
+          function getNbReport() {
+              return $this->nbReport;
+          }
+          
+          function getBan() {
+              return $this->ban;
+          }
+          
+          function getRole() {
+              return $this->role;
+          }
 
           function setId($id) {
               $this->id = $id;
@@ -44,5 +59,17 @@
           
           function setImage($image) {
               $this->image = $image;
+          }
+          
+          function setNbReport($nbReport) {
+              $this->nbReport = $nbReport;
+          }
+          
+          function setBan($ban) {
+              $this->ban = $ban;
+          }
+          
+          function setRole($role) {
+              $this->role = $role;
           }
     }

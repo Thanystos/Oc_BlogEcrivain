@@ -17,7 +17,7 @@ if ($requestReports) {
                     <hr>
                     <div class="billet">
                         <h2><?php echo html_entity_decode(htmlspecialchars($ticket['title'])); ?></h2>
-                        <h5><span class="glyphicon glyphicon-time"></span> Publié par <?php echo $ticket['pseudo']; ?> le <?php echo $ticket['post_date']; ?>.</h5>
+                        <h5><span class="glyphicon glyphicon-time"></span> Publié par <a href="profil_<?php echo $ticket['pseudo']; ?>.html"><?php echo $ticket['pseudo']; ?></a> le <?php echo $ticket['post_date']; ?>.</h5>
                         <div class="billetcontent">
                             <?php echo nl2br(html_entity_decode((htmlspecialchars($ticket['text'])))); ?>
                             <br><br>
@@ -74,11 +74,11 @@ if ($requestReports) {
                         <div class="row">
                             <div class="col-sm-2 text-center">
                                 <a href="profil_<?php echo $comment['pseudo']; ?>.html">
-                                    <img src="Public/Images/<?php echo $comment['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar">
+                                    <img src="Public/Images/<?php echo $comment['pseudo']; ?>/<?php echo $comment['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar">
                                 </a>
                             </div>
                             <div class="col-sm-10">
-                                <h4><?php echo $comment['pseudo']; ?><small> Le <?php echo $comment['post_date']; ?></small></h4>
+                                <h4><a href="profil_<?php echo $comment['pseudo']; ?>.html"><?php echo $comment['pseudo']; ?></a><small> Le <?php echo $comment['post_date']; ?></small></h4>
                                 <div class="comm">
                                     <?php echo nl2br(html_entity_decode(htmlspecialchars($comment['text']))); ?>
                                     <br><br>
@@ -117,10 +117,12 @@ if ($requestReports) {
                         <br><br>
                     <?php } ?>
                     <?php $requestComments->closeCursor(); ?>
-                    <div class="navigation" style="text-align: center">
+                    <div class="navigation text-center">
+                        <ul class="pagination pagination-lg">
                         <?php for($i=1; $i<=$_SESSION['nbPageComment']; $i++) { ?>
-                            <a href="billet_<?php echo $_SESSION['id_ticket']; ?>-<?php echo $i; ?>.html"><?php echo $i; ?></a> /
+                            <li><a href="billet_<?php echo $_SESSION['id_ticket']; ?>-<?php echo $i; ?>.html"><?php echo $i; ?></a></li>
                         <?php } ?>
+                        </ul>
                     </div>
                 </div>
             </div>

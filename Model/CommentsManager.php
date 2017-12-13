@@ -2,6 +2,8 @@
     include_once 'DBConnexion.php';
     
     class CommentsManager {
+        
+        // Méthode permettant de créer un commentaire (Utile pour la page d'un billet unique)
         public static function create(Comment $comment) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('INSERT INTO comments (text, id_ticket, id_user, post_date) '
@@ -10,6 +12,7 @@
             $request->execute(array('text'=>$comment->getText(), 'id_ticket'=>$comment->getIdTicket(), 'id_user'=>$comment->getIdUser()));
         }
 
+        // Requête permettant de récuperer les commentaires pour un billet et sa pagination de commentaire donnés (Utile pour la page d'un billet unique) 
         public static function read($id_ticket, $page) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare("SELECT c.id, c.text, u.pseudo, u.image, DATE_FORMAT(c.post_date, '%d/%m/%Y à %Hh%imin%ss') AS post_date "
@@ -23,6 +26,7 @@
             return $request;
         }
         
+        // Requête permettant de récupérer les commentaires d'un utilisateur donné (Utile pour la page de profil)
         public static function readPseudo($pseudo) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('SELECT c.text, c.post_date AS cpost_date, t.title, t.post_date AS tpost_date '
@@ -31,12 +35,14 @@
                                      . 'ON u.id = c.id_user '
                                      . 'INNER JOIN tickets t '
                                      . 'ON c.id_ticket = t.id '
-                                     . 'WHERE u.pseudo = ?');
+                                     . 'WHERE u.pseudo = ? '
+                                     . 'ORDER BY tpost_date DESC LIMIT 0, 5');
             
             $request->execute(array($pseudo));
             return $request;
         }
         
+        // Requête permettant de récupérer les commentaires signalés (Utile pour la page 'liste des signalements')
         public static function readReports() {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->query('SELECT c.id, c.text, t.title, u.pseudo '
@@ -52,6 +58,7 @@
             return $request;
         }
 
+        // Requête permettant de mettre à jour un commentaire (Utile pour la page d'un billet unique)
         public static function update($id_comment, $text) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('UPDATE comments '
@@ -61,6 +68,7 @@
             $request->execute(array($text, $id_comment));
         }
         
+        // Méthode permettant de supprimer un commentaire (Utile pour la page d'un billet unique)
         public static function delete($id_comment) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('DELETE FROM comments '
@@ -69,6 +77,7 @@
             $request->execute(array($id_comment));
         }
         
+        // Méthode permettant de compter le nombre de commentaires pour un billet donné (Utile pour la pagination de la page liste des billets)
         public static function count($id_ticket) {
             $pdo = DBConnexion::getInstance();
             $request = $pdo->prepare('SELECT COUNT(*) FROM comments '

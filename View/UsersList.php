@@ -21,7 +21,7 @@
                         <tbody>
                             <?php while ($user = $request->fetch()) { ?>
                             <tr>
-                                <th id="<?php echo $user['pseudo']; ?>"><?php echo $user['pseudo']; ?></th>
+                                <th id="<?php echo $user['pseudo']; ?>"><a href="profil_<?php echo $user['pseudo']; ?>.html"><?php echo $user['pseudo']; ?></a></th>
                                 <th><?php echo $user['email']; ?></th>
                                 <th><?php echo $user['image']; ?></th>
                                 <th><?php if($user['role'] == 1) {
@@ -44,7 +44,7 @@
                                 <?php } ?>
                                 </th>
                                 <th>
-                                    <form id="supprimer" method="post" action="supputilisateur_<?php echo $user['id'] ?>-<?php echo $user['image']; ?>.html">
+                                    <form id="supprimer" method="post" action="supputilisateur_<?php echo $user['id'] ?>-<?php echo $user['pseudo']; ?>.html">
                                         <input type="submit" class="btn btn-danger" value="SUPPRIMER" />
                                     </form>
                                 </th>
