@@ -5,14 +5,19 @@
         <title></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="http://localhost/ObjPHP/BlogEcrivain/Public/Images/livre.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="Public/CSS/Main.css">
     </head>
     <body>
         <div class="container-fluid">
             <div class="row content">
-                <div class="col-sm-3 sidenav">
-                    <h4>Le blog de l'écrivain</h4>
+                <div class="col-sm-2 sidenav">
+                    <h4 style="text-align: center; padding-bottom: 5px; border-bottom: 1px solid black;">
+                        Billet simple<br>
+                        pour<br>
+                        l'Alaska
+                    </h4>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="listebillets.html">Liste des billets</a></li>
                         <?php if((isset($_SESSION['pseudo']))&&($_SESSION['role'] == 2)) { ?>

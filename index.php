@@ -60,7 +60,7 @@
     }elseif(filter_input(INPUT_GET, 'action') == 'updateImage') {
         updateImage();
     }
-    elseif(filter_input(INPUT_GET, 'action') == '404') {
+    elseif(filter_input(INPUT_GET, 'action') == 'error404') {
         error404();
     }
     else {

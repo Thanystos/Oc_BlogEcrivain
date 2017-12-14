@@ -1,4 +1,10 @@
-.row.content {height: 1500px}
+body {
+    background-image: url('../Images/alaska.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.row.content {height: 2000px}
 
 .sidenav {
     background-color: #f1f1f1;

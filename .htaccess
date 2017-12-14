@@ -55,6 +55,4 @@ RewriteRule ^modifmdp\.html$ index.php?action=updatePassword
 #Réécriture des URL des pages de profil utilisateur
 RewriteRule ^modifimage\.html$ index.php?action=updateImage
 #En cas de document introuvable renvoie sur la page 404.html
-ErrorDocument 404 http://localhost/ObjPHP/BlogEcrivain/index.php?action=404
-
-
+ErrorDocument 404 /ObjPHP/BlogEcrivain/index.php?action=error404

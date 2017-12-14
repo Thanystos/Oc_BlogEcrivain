@@ -43,6 +43,7 @@ img.avatar {
 
 .container {
     padding: 16px;
+    width: auto !important;
 }
 
 span.psw {

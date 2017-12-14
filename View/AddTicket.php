@@ -1,7 +1,9 @@
                 <?php include 'nav.php'; ?>
-                <div class="col-sm-9">
+                <div class="col-sm-8 col-sm-offset-1">
                     <h4><small>CRÉATION BILLET</small></h4>
                     <hr>
+                </div>
+                <div class="col-sm-8 col-sm-offset-1" style="background-color: white; padding: 15px;">
                     <h4>Créer un nouveau billet :</h4>
                     <form id="envoi" method="post" action="creerbillet.html">
                         <div class="form-group text-center">

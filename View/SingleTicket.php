@@ -11,10 +11,12 @@ if ($requestReports) {
     }
 }
                 include 'nav.php';
-                ob_start(); ?>                
-                <div class="col-sm-9">
+                ob_start(); ?>
+                <div class="col-sm-8 col-sm-offset-1">
                     <h4><small>BILLET UNIQUE</small></h4>
                     <hr>
+                </div>
+                <div class="col-sm-8 col-sm-offset-1" style="background-color: white;">
                     <div class="billet">
                         <h2><?php echo html_entity_decode(htmlspecialchars($ticket['title'])); ?></h2>
                         <h5><span class="glyphicon glyphicon-time"></span> Publié par <a href="profil_<?php echo $ticket['pseudo']; ?>.html"><?php echo $ticket['pseudo']; ?></a> le <?php echo $ticket['post_date']; ?>.</h5>
@@ -77,7 +79,7 @@ if ($requestReports) {
                                     <img src="Public/Images/<?php echo $comment['pseudo']; ?>/<?php echo $comment['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar">
                                 </a>
                             </div>
-                            <div class="col-sm-10">
+                            <div class="col-sm-10 colcss">
                                 <h4><a href="profil_<?php echo $comment['pseudo']; ?>.html"><?php echo $comment['pseudo']; ?></a><small> Le <?php echo $comment['post_date']; ?></small></h4>
                                 <div class="comm">
                                     <?php echo nl2br(html_entity_decode(htmlspecialchars($comment['text']))); ?>

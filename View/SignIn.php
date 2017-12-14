@@ -8,9 +8,11 @@
                 } ?>
                 <link rel="stylesheet" href="Public/CSS/SignIn.css">
                 <?php include 'nav.php'; ?>
-                <div class="col-sm-9">
+                <div class="col-sm-8 col-sm-offset-1">
                     <h4><small>CONNEXION</small></h4>
                     <hr>
+                </div>
+                <div class="col-sm-8 col-sm-offset-1" style="background-color: white; padding: 15px;">
                     <div class="imgcontainer">
                         <img src="Public/Images/avatar.png" alt="Avatar" class="avatar">
                     </div>

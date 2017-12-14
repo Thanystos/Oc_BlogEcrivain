@@ -3,9 +3,11 @@
                 }
                     include 'nav.php';
                 ?>
-                <div class="col-sm-9">
+                <div class="col-sm-8 col-sm-offset-1">
                     <h4><small>LISTE DES UTILISATEURS</small></h4>
                     <hr>
+                </div>
+                <div class="col-sm-8 col-sm-offset-1" style="background-color: white; padding: 15px;">
                     <table class="table table-bordered">
                         <thead>
                             <tr>

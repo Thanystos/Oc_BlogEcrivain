@@ -17,11 +17,13 @@
                 ?>
                 <link rel="stylesheet" href="Public/CSS/SignIn.css">
                 <?php include 'nav.php'; ?>
-                <div class="col-sm-9">
+                <div class="col-sm-8 col-sm-offset-1">
                     <?php if(isset($requestInfos)) {
                         $infos = $requestInfos->fetch(); ?>
                         <h4><small>PAGE DE PROFIL : <?php echo $infos['pseudo']; ?></small></h4>
                         <hr>
+                </div>
+                        <div class="col-sm-8 col-sm-offset-1" style="background-color: white; padding: 15px;">
                         <h2>Informations de profil :</h2>
                         <div class="infos">
                             <form id="sendemail" method="post" action="modifemail.html">
@@ -53,6 +55,11 @@
                                 Signalé : <?php echo $infos['nb_report']; ?> fois
                             </div>
                         </div>
+                    <?php } else { ?>
+                        <h4><small>PAGE DE PROFIL</h4>
+                        <hr>
+                        </div>
+                <div class="col-sm-8 col-sm-offset-1" style="background-color: white; padding: 15px;">
                     <?php } ?>
                     <h2 style="margin-bottom: 40px;">Commentaires postés :</h2>
                     <div>
