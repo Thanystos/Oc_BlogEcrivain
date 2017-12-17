@@ -24,5 +24,3 @@ class DBConnexion {  // Mon singleton qu'on appelera à chaque connexion
         return $this->pdo->prepare($sql);
     }
 }
-
-// Ici mes classes ne me permettent d'utiliser qu'1 seule Factory (PDO) (c'est suffisant pour le projet ?)

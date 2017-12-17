@@ -5,9 +5,9 @@ RewriteEngine On
 # Réécriture URL de l'index
 RewriteRule ^index\.html$ index.php
 # Réécriture URL de la page d'accueil (liste des 5 derniers billets)
-RewriteRule ^listebillets\.html$ index.php?page=1
+RewriteRule ^listebillets\.html$ index.php?action=ticketsList&page=1
 # Réécriture URL de la page d'accueil (liste des derniers billets)
-RewriteRule ^listebillets_([0-9]+)\.html$ index.php?page=$1
+RewriteRule ^listebillets_([0-9]+)\.html$ index.php?action=ticketsList&page=$1
 # Réécriture URL de la page d'inscription
 RewriteRule ^inscription\.html$ index.php?action=signUp
 # Réécriture URL de validation d'inscription
@@ -44,8 +44,10 @@ RewriteRule ^signaler_([0-9]+)-([a-zA-Z0-9._-]+)\.html$ index.php?action=report&
 RewriteRule ^ajoutcommentaire\.html$ index.php?action=addComment
 # Réécriture des URL modification de commentaires
 RewriteRule ^modifcommentaire_([0-9]+)\.html$ index.php?action=updateComment&id_comment=$1
-# Réécriture des URL suppression de commentaires
+# Réécriture des URL suppression de commentaires (depuis la page d'un billet)
 RewriteRule ^suppcommentaire_([0-9]+)\.html$ index.php?action=deleteComment&id_comment=$1
+# Réécriture des URL suppression de commentaires (depuis la page listant les signalements
+RewriteRule ^suppcommentaire_([0-9]+)-list\.html$ index.php?action=deleteComment&id_comment=$1&list=true
 #Réécriture des URL des pages de profil utilisateur
 RewriteRule ^profil_([a-zA-Z0-9._-]+)\.html$ index.php?action=profilePage&pseudo=$1
 #Réécriture des URL des pages de profil utilisateur
@@ -55,4 +57,4 @@ RewriteRule ^modifmdp\.html$ index.php?action=updatePassword
 #Réécriture des URL des pages de profil utilisateur
 RewriteRule ^modifimage\.html$ index.php?action=updateImage
 #En cas de document introuvable renvoie sur la page 404.html
-ErrorDocument 404 /ObjPHP/BlogEcrivain/index.php?action=error404
+ErrorDocument 404 /ObjPHP/OC_BlogEcrivain/View/error/404.html

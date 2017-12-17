@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="http://localhost/ObjPHP/BlogEcrivain/Public/Images/livre.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="Public/CSS/Main.css">
     </head>
     <body>
@@ -35,8 +35,16 @@
                     </ul><br>
                     <?php if(isset($_SESSION['pseudo'])){ ?>
                         <div class="text-center">
-                            <h3><a href="profil_<?php echo $_SESSION['pseudo']; ?>.html"><?php echo $_SESSION['pseudo']; ?></a></h3>
-                            <a href="profil_<?php echo $_SESSION['pseudo']; ?>.html"><img src="Public/Images/<?php echo $_SESSION['pseudo']; ?>/<?php echo $_SESSION['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar"></a>
+                            <h3><a href="profil_<?= $_SESSION['pseudo']; ?>.html"><?= $_SESSION['pseudo']; ?></a></h3>
+                            <a href="profil_<?= $_SESSION['pseudo']; ?>.html"><img src="Public/Images/<?= $_SESSION['pseudo']; ?>/<?= $_SESSION['image']; ?>" class="img-circle" height="65" width="65" alt="Avatar"></a>
                         </div>
                     <?php } ?>
                 </div>
+                <?= $content; ?>
+            </div>
+        </div>
+    </body>
+    <footer>
+        <p style="text-align: center">Copyright © 2017 - Anthony GUICHARD - Tous droits réservés</p>
+    </footer>
+</html>
