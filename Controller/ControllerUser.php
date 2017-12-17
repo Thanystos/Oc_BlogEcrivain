@@ -10,14 +10,14 @@
         }
         
         // Méthode appelée quand on souhaite accéder à la page listant les utilisateurs (ADMIN)
-        function usersList() {
+        public function usersList() {
             $request = $this->usersManager->readall();
             $viewUsersList = new View('UsersList');
             $viewUsersList->generate(array('request' => $request));
         }
         
         // Méthode appelée lorsqu'on souhaite modifier notre mot de passe via la page de profil
-        function updatePassword() {
+        public function updatePassword() {
             $password_hash = password_hash(filter_input(INPUT_POST, 'password'), PASSWORD_BCRYPT);
             $this->usersManager->updatePassword($password_hash);
             $_SESSION['success'] = 'Mot de passe mis à jour !';
@@ -25,7 +25,7 @@
         }
         
         // Méthode appelée lorsqu'on souhaite modifier notre email via la page de profil
-        function updateEmail() {
+        public function updateEmail() {
             $_SESSION['email'] = filter_input(INPUT_POST, 'email');
             $this->usersManager->updateEmail(filter_input(INPUT_POST, 'email'));
             $_SESSION['success'] = 'Email mis à jour !';
@@ -33,7 +33,7 @@
         }
         
         // Méthode appelée lorsqu'on souhaite modifier notre image via la page de profil
-        function updateImage() {
+        public function updateImage() {
             if(isset($_FILES['image'])&&($_FILES['image']['error'] == 0)) {
                 if(($_FILES['image']['size'] <= 1000000)) {
                     $fileInfos = pathinfo($_FILES['image']['name']);
@@ -61,13 +61,13 @@
         }
         
         // Méthode appelée lorsqu'on bannit ou qu'on restaure un utilisateur via la page qui les liste (ADMIN)
-        function updateStatus() {
+        public function updateStatus() {
             $this->usersManager->updateStatus(filter_input(INPUT_GET, 'id_user'));
             $this->usersList();
         }
         
         // Méthode appelée lorsqu'on supprime un utilisateur via la page qui les liste (ADMIN)
-        function deleteUser() {
+        public function deleteUser() {
             array_map('unlink', glob('Public/Images/'.filter_input(INPUT_GET, 'pseudo').'/*'));  // On supprime tous les fichiers du dossier de l'utilisateur
             rmdir('Public/Images/'.filter_input(INPUT_GET, 'pseudo'));  // On supprime le dossier de l'utilisateur
             $this->usersManager->delete(filter_input(INPUT_GET, 'id'));

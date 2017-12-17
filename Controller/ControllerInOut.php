@@ -105,7 +105,7 @@
         }
         
         // Méthode appelée lors de la deconnexion de l'utilisateur
-        function signOut() {
+        public function signOut() {
             unset($_SESSION['id_user'], $_SESSION['pseudo'], $_SESSION['email'], $_SESSION['image'], $_SESSION['ban'], $_SESSION['role'], $_SESSION['id_ticket'], $_SESSION['page'], $_SESSION['nbPageComment'], $_SESSION['nbPageTicket'], $_SESSION['error'], $_SESSION['success']);
             session_destroy();
             $this->ticketsList->home();

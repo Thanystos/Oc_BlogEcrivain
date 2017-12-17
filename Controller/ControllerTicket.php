@@ -63,7 +63,7 @@
         }
         
         // Méthode appelée lors de la suppression d'un billet (ADMIN)
-        function deleteTicket() {
+        public function deleteTicket() {
             $this->ticketsManager->delete($_SESSION['id_ticket']);
             header('Location: listebillets.html');
         }  

@@ -17,7 +17,7 @@
         }
         
         // Méthode appelée lors d'un signalement de commentaire
-        function createReport() {
+        public function createReport() {
             $report = new Report();
             $report->setIdComment(filter_input(INPUT_GET, 'id_comment'));
             $report->setIdUser($_SESSION['id_user']);
@@ -30,7 +30,7 @@
         }
         
         // Méthode appelée quand on souhaite accéder à la page listant les signalements (ADMIN)
-        function reportsList() {
+        public function reportsList() {
             $requestComments = $this->commentsManager->readReports();
             $requestReports = $this->reportsManager->readReports();
             $reportsListtView = new View('ReportsList');
