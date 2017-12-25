@@ -7,11 +7,6 @@
         private $usersManager;
         private $ticketsList;
         
-        public function __construct() {
-            $this->usersManager = new UsersManager();
-            $this->ticketsList = new ControllerHome();
-        }
-        
         // Méthode appelée lors de la demande de l'affichage du formulaire d'inscription
         public function signUpView() {
             $signUpView = new View('SignUp');
@@ -26,6 +21,10 @@
         
         // Méthode appelée lors de la validation du formulaire d'inscription
         public function signUp() {
+            include 'ControllerHome.php';
+            $this->ticketsList = new ControllerHome();
+            $this->usersManager = new UsersManager();
+            
             if(isset($_FILES['image'])&&($_FILES['image']['error'] == 0)) {  // On vérifie que l'image a été envoyée sans erreurs
                 // Vérifications des doublons et de l'image
                 if (!$this->usersManager->verify(filter_input(INPUT_POST, 'pseudo'))) {  // On vérifie que le pseudo du nouvel utilisateur n'existe pas déjà
@@ -86,6 +85,10 @@
         
         // Méthode appelée lors de la validation du formulaire de connexion
         public function signIn() {
+            include 'ControllerHome.php';
+            $this->ticketsList = new ControllerHome();
+            $this->usersManager = new UsersManager();
+            
             $request = $this->usersManager->read(filter_input(INPUT_POST, 'pseudo'), filter_input(INPUT_POST, 'password'));
 
             // Mis en place des variables de session liées à l'utilisateur nouvellement connecté
@@ -106,6 +109,9 @@
         
         // Méthode appelée lors de la deconnexion de l'utilisateur
         public function signOut() {
+            include 'ControllerHome.php';
+            $this->ticketsList = new ControllerHome();
+            
             unset($_SESSION['id_user'], $_SESSION['pseudo'], $_SESSION['email'], $_SESSION['image'], $_SESSION['ban'], $_SESSION['role'], $_SESSION['id_ticket'], $_SESSION['page'], $_SESSION['nbPageComment'], $_SESSION['nbPageTicket'], $_SESSION['error'], $_SESSION['success']);
             session_destroy();
             $this->ticketsList->home();

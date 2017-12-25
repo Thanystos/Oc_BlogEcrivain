@@ -10,14 +10,11 @@
         private $commentsManager;
         private $usersManager;
         
-        public function __construct() {
-            $this->reportsManager = new ReportsManager();
-            $this->commentsManager = new CommentsManager();
-            $this->usersManager = new UsersManager();
-        }
-        
         // Méthode appelée lors d'un signalement de commentaire
         public function createReport() {
+            $this->reportsManager = new ReportsManager();
+            $this->usersManager = new UsersManager();
+            
             $report = new Report();
             $report->setIdComment(filter_input(INPUT_GET, 'id_comment'));
             $report->setIdUser($_SESSION['id_user']);
@@ -31,6 +28,9 @@
         
         // Méthode appelée quand on souhaite accéder à la page listant les signalements (ADMIN)
         public function reportsList() {
+            $this->commentsManager = new CommentsManager();
+            $this->reportsManager = new ReportsManager();
+            
             $requestComments = $this->commentsManager->readReports();
             $requestReports = $this->reportsManager->readReports();
             $reportsListtView = new View('ReportsList');

@@ -10,12 +10,6 @@
         private $commentsManager;
         private $reportsManager;
         
-        public function __construct() {
-            $this->ticketsManager = new TicketsManager();
-            $this->commentsManager = new CommentsManager();
-            $this->reportsManager = new ReportsManager();   
-        }
-        
         // Méthode appelée lors de la demande de l'affichage de la page de création de billets
         public function addTicketView() {
             $addTicketView = new View('AddTicket');
@@ -24,6 +18,8 @@
         
         // Méthode appelée lorsqu'un nouveau billet sera soumis après validation du formulaire présent sur la page de création d'un nouveau billet (ADMIN)
         public function addTicket() {
+            $this->ticketsManager = new TicketsManager();
+            
             $ticket = new Ticket();
             $ticket->setTitre(filter_input(INPUT_POST, 'titre'));
             $ticket->setText(filter_input(INPUT_POST, 'text'));
@@ -35,6 +31,10 @@
         
         // Méthode appelée lorsque l'on veut accéder à la page présentant un billet précis
         public function singleTicket() {
+            $this->ticketsManager = new TicketsManager();
+            $this->commentsManager = new CommentsManager();
+            $this->reportsManager = new ReportsManager();  
+            
             $requestTicket = $this->ticketsManager->read(filter_input(INPUT_GET, 'id_ticket'));
             $requestNbComments = $this->commentsManager->count(filter_input(INPUT_GET, 'id_ticket'));
             $nbComments = $requestNbComments->fetch();
@@ -58,12 +58,16 @@
         
         // Méthode appelée lors de la mise à jour d'un billet (ADMIN)
         public function updateTicket() {
+            $this->ticketsManager = new TicketsManager();
+            
             $this->ticketsManager->update(($_SESSION['id_ticket']), filter_input(INPUT_POST, 'text'));
             header('Location: billet_'.$_SESSION['id_ticket'].'.html');
         }
         
         // Méthode appelée lors de la suppression d'un billet (ADMIN)
         public function deleteTicket() {
+            $this->ticketsManager = new TicketsManager();
+            
             $this->ticketsManager->delete($_SESSION['id_ticket']);
             header('Location: listebillets.html');
         }  
